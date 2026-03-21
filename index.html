@@ -1,0 +1,1847 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>a little something for you 🌙</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Crimson+Pro:ital,wght@0,200;0,300;1,200;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href='data:image/svg+xml,
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <text y=".9em" font-size="90">🌸</text>
+    </svg>'
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --gold: #c9a96e;
+        --rose: #c47a8a;
+        --mist: #8a7fa0;
+        --cream: #f0e8d8;
+        --paper: #0d0b12;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+      body {
+        background: var(--paper);
+        color: var(--cream);
+        font-family: "Crimson Pro", serif;
+      }
+      #stars {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 1.5rem;
+        text-align: center;
+      }
+
+      /* ── HERO ── */
+      .tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 300;
+        opacity: 0;
+        animation: rise 1s ease forwards 0.4s;
+        margin-bottom: 1.4rem;
+      }
+      /* Two lines: "Happy" then "Birthday," */
+      .hero-title {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--cream);
+        opacity: 0;
+        animation: rise 1.2s ease forwards 0.9s;
+        margin-bottom: 0.3em;
+      }
+      .hero-title .line1 {
+        display: block;
+        font-size: clamp(3rem, 12vw, 6.5rem);
+      }
+      .hero-title .line2 {
+        display: block;
+        font-size: clamp(3rem, 12vw, 6.5rem);
+      }
+      .hero-title .line3 {
+        display: block;
+        font-size: clamp(3rem, 12vw, 6.5rem);
+        font-style: italic;
+        color: var(--gold);
+      }
+      .sub {
+        font-weight: 200;
+        font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+        color: var(--mist);
+        letter-spacing: 0.12em;
+        opacity: 0;
+        animation: rise 1s ease forwards 1.2s;
+        margin-bottom: 3rem;
+      }
+      .sc {
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--mist);
+        opacity: 0;
+        animation:
+          rise 1s ease forwards 2s,
+          sp 3s ease-in-out infinite 2.5s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .sc::after {
+        content: "";
+        width: 1px;
+        height: 34px;
+        background: linear-gradient(to bottom, var(--mist), transparent);
+      }
+
+      /* ── LETTER ── */
+      .lw {
+        max-width: 640px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 3rem 0 5rem;
+      }
+      .dv {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      .dv::before,
+      .dv::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0.4;
+      }
+      .dv span {
+        color: var(--gold);
+      }
+      .lf {
+        font-weight: 200;
+        font-size: 0.7rem;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--rose);
+        margin-bottom: 2.5rem;
+      }
+      .lb {
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(201, 169, 110, 0.13);
+        border-radius: 2px;
+        padding: clamp(1.8rem, 5vw, 3rem) clamp(1.2rem, 5vw, 3.5rem);
+        backdrop-filter: blur(4px);
+      }
+      .lb::before {
+        content: "\201C";
+        position: absolute;
+        top: -0.55em;
+        left: 1.6rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 8rem;
+        color: var(--rose);
+        opacity: 0.12;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .lp {
+        font-weight: 300;
+        font-size: clamp(1rem, 2.4vw, 1.15rem);
+        line-height: 1.92;
+        color: rgba(240, 232, 216, 0.88);
+        margin-bottom: 1.5em;
+      }
+      .lp:last-child {
+        margin-bottom: 0;
+      }
+      .lp.hl {
+        font-style: italic;
+        color: var(--cream);
+        font-size: clamp(1.05rem, 2.8vw, 1.28rem);
+      }
+      .lp.cl {
+        margin-top: 2rem;
+        padding-top: 1.8rem;
+        border-top: 1px solid rgba(201, 169, 110, 0.1);
+        font-style: italic;
+        color: var(--mist);
+        font-size: clamp(0.88rem, 2vw, 1rem);
+      }
+
+      /* ── OUTRO ── */
+      .outro {
+        padding: 2rem 0 6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .pb {
+        font-size: 2.6rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        line-height: 1;
+        filter: drop-shadow(0 0 14px rgba(196, 122, 138, 0.5));
+        animation: pbob 3s ease-in-out infinite;
+        transition:
+          transform 0.2s,
+          filter 0.2s;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .pb:hover,
+      .pb:active {
+        transform: scale(1.22) !important;
+        filter: drop-shadow(0 0 32px rgba(240, 176, 196, 0.9));
+      }
+      .ot {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+        font-style: italic;
+        color: var(--mist);
+      }
+      .oh {
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--rose);
+        opacity: 0.65;
+      }
+
+      .pt {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        animation: drift linear infinite;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes sp {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 0.85;
+        }
+      }
+      @keyframes pbob {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-3deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(3deg);
+        }
+      }
+      @keyframes drift {
+        0% {
+          transform: translateY(105vh) rotate(0);
+          opacity: 0;
+        }
+        8% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.35;
+        }
+        100% {
+          transform: translateY(-8vh) rotate(540deg);
+          opacity: 0;
+        }
+      }
+
+      /* ════════════════════════════════
+   GAME MODAL
+════════════════════════════════ */
+      #gm {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        align-items: center;
+        justify-content: center;
+        padding: 0.6rem;
+        background: rgba(4, 2, 10, 0.93);
+        backdrop-filter: blur(20px);
+      }
+      #gm.open {
+        display: flex;
+      }
+
+      .gbox {
+        width: 100%;
+        max-width: 760px;
+        background: #0b0916;
+        border: 1px solid rgba(201, 169, 110, 0.18);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 0 80px rgba(196, 122, 138, 0.1);
+        display: flex;
+        flex-direction: column;
+        /* fill screen height properly */
+        height: calc(100svh - 1.2rem);
+        max-height: 700px;
+      }
+
+      /* TOP BAR */
+      .gbar {
+        background: rgba(255, 255, 255, 0.025);
+        border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+        padding: 0.45rem 0.9rem;
+        display: grid;
+        grid-template-columns: 28px 1fr auto auto;
+        align-items: center;
+        gap: 0.55rem;
+        flex-shrink: 0;
+      }
+      .gcls {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--mist);
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+        transition: background 0.2s;
+        touch-action: manipulation;
+      }
+      .gcls:hover,
+      .gcls:active {
+        background: rgba(196, 122, 138, 0.3);
+        color: var(--cream);
+      }
+      .gbrand {
+        font-size: 0.5rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        opacity: 0.6;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .glives {
+        font-size: 0.82rem;
+        white-space: nowrap;
+        letter-spacing: 0.08rem;
+      }
+      .gsc {
+        font-size: 0.68rem;
+        color: var(--gold);
+        font-weight: 700;
+        white-space: nowrap;
+        padding-right: 0.1rem;
+      }
+
+      /* STAGE DOTS */
+      .gdots {
+        padding: 0.28rem 0.9rem;
+        background: rgba(255, 255, 255, 0.015);
+        border-bottom: 1px solid rgba(201, 169, 110, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-shrink: 0;
+      }
+      .sd {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        transition:
+          background 0.4s,
+          box-shadow 0.4s;
+        flex-shrink: 0;
+      }
+      .sd.done {
+        background: var(--gold);
+      }
+      .sd.cur {
+        background: var(--rose);
+        box-shadow: 0 0 6px var(--rose);
+      }
+      .ghint {
+        margin-left: auto;
+        font-size: 0.54rem;
+        color: var(--mist);
+        letter-spacing: 0.06em;
+      }
+
+      /* ARENA — takes all remaining flex space */
+      .garena {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        min-height: 0;
+      }
+      #gc {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* OVERLAYS */
+      .gov {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(4, 2, 10, 0.86);
+        backdrop-filter: blur(6px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 10;
+        text-align: center;
+        padding: 1.2rem;
+      }
+      .gov.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .gov h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.25rem, 4vw, 1.6rem);
+        color: var(--cream);
+        margin-bottom: 0.35rem;
+      }
+      .gov p {
+        font-weight: 300;
+        font-size: clamp(0.78rem, 2.5vw, 0.9rem);
+        color: var(--mist);
+        line-height: 1.7;
+        max-width: 300px;
+        margin-bottom: 0.85rem;
+      }
+      .gbtn {
+        background: linear-gradient(135deg, var(--rose), #9b7fe8);
+        color: #fff;
+        font-family: "Crimson Pro", serif;
+        font-size: clamp(0.78rem, 2.5vw, 0.88rem);
+        font-weight: 600;
+        padding: 0.44rem 1.5rem;
+        border-radius: 100px;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.05em;
+        transition: opacity 0.2s;
+        touch-action: manipulation;
+      }
+      .gbtn:hover,
+      .gbtn:active {
+        opacity: 0.8;
+      }
+
+      /* PROGRESS BAR */
+      .gprog {
+        padding: 0.42rem 0.9rem 0.52rem;
+        background: rgba(0, 0, 0, 0.18);
+        border-top: 1px solid rgba(201, 169, 110, 0.05);
+        flex-shrink: 0;
+      }
+      .gprow {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.54rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mist);
+        margin-bottom: 0.24rem;
+      }
+      .gpt {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .gpf {
+        height: 100%;
+        background: linear-gradient(90deg, var(--rose), var(--gold));
+        border-radius: 3px;
+        transition: width 0.25s ease;
+        width: 0%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stars"></canvas>
+    <script>
+      ["✦", "·", "˚", "⋆", "🌸"].forEach(function (e) {
+        for (var j = 0; j < 3; j++) {
+          var p = document.createElement("div");
+          p.className = "pt";
+          p.textContent = e;
+          Object.assign(p.style, {
+            left: Math.random() * 100 + "vw",
+            fontSize: 0.4 + Math.random() * 0.7 + "rem",
+            color: ["#c9a96e", "#c47a8a", "#9b7fe8", "#f0e8d8"][
+              ~~(Math.random() * 4)
+            ],
+            animationDuration: 16 + Math.random() * 18 + "s",
+            animationDelay: Math.random() * 22 + "s",
+          });
+          document.body.appendChild(p);
+        }
+      });
+    </script>
+
+    <!-- S1: HERO -->
+    <div class="page">
+      <p class="tag">a little something for you 🌙</p>
+      <h1 class="hero-title">
+        <span class="line1">Happy</span>
+        <span class="line2">Birthday,</span>
+        <span class="line3">Kithmi</span>
+      </h1>
+      <p class="sub">from somewhere quiet in the heart</p>
+      <div class="sc">read on</div>
+    </div>
+
+    <!-- S2: LETTER -->
+    <div class="page">
+      <div class="lw">
+        <div class="dv"><span>✦</span></div>
+        <div class="lb">
+          <p class="lp">
+            You have no idea how much I've loved you since the day I first saw
+            you in physics class. Something about that moment just stayed with
+            me quietly, in the background like a song you can't stop humming.
+          </p>
+          <p class="lp hl">
+            "You are still my favourite stranger on the planet."
+          </p>
+          <p class="lp">
+            I wish you all the very best for this year. Work hard, chase
+            whatever makes your eyes light up, and live a happy life. That's the
+            one thing I want more than anything.
+          </p>
+          <p class="lp">
+            I'd love to at least be in your life in some small way. But what
+            matters, truly, is you being happy. That's enough for me.
+          </p>
+          <p class="lp">
+            Cheers to many more happy memories, wherever life takes you. You'll
+            always be in my heart. 🤍
+          </p>
+          <p class="lp cl">Until next year, goodbye. 🌙</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3: OUTRO -->
+    <div class="page">
+      <div class="outro">
+        <button class="pb" id="petalBtn">🌸</button>
+        <p class="ot">Many happy returns</p>
+        <p class="oh">click the flower</p>
+      </div>
+    </div>
+
+    <!-- GAME MODAL -->
+    <div id="gm">
+      <div class="gbox">
+        <div class="gbar">
+          <button class="gcls" id="gcls">✕</button>
+          <span class="gbrand">✦ a little adventure</span>
+          <span class="glives" id="glives">❤️❤️❤️</span>
+          <span class="gsc">⭐&thinsp;<span id="gscv">0</span></span>
+        </div>
+        <div class="gdots">
+          <div class="sd cur" id="sd0"></div>
+          <div class="sd" id="sd1"></div>
+          <div class="sd" id="sd2"></div>
+          <div class="sd" id="sd3"></div>
+          <span class="ghint">tap · space to jump</span>
+        </div>
+        <div class="garena" id="garena">
+          <canvas id="gc"></canvas>
+          <div class="gov show" id="ov-start">
+            <h3>Jump! ✨</h3>
+            <p>Collect stars ⭐ to grow.<br />See what happens.</p>
+            <button class="gbtn" id="btn-start">Play →</button>
+          </div>
+          <div class="gov" id="ov-over">
+            <h3>Oops! 💫</h3>
+            <p>So close — try again!</p>
+            <button class="gbtn" id="btn-retry">↩ Retry</button>
+          </div>
+          <div class="gov" id="ov-win">
+            <div style="font-size: 2rem; margin-bottom: 0.4rem">🌸</div>
+            <h3>You made it!</h3>
+            <p>
+              From the very beginning,<br />all the way here. Happy Birthday 🤍
+            </p>
+            <button class="gbtn" id="btn-win">Play again 🌸</button>
+          </div>
+        </div>
+        <div class="gprog">
+          <div class="gprow">
+            <span id="gpl">level 1 / 4</span><span id="gps">0 stars</span>
+          </div>
+          <div class="gpt"><div class="gpf" id="gpf"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ══ STARFIELD ══ */
+      (function () {
+        var c = document.getElementById("stars"),
+          x = c.getContext("2d"),
+          W,
+          H,
+          t = 0;
+        function sz() {
+          W = c.width = innerWidth;
+          H = c.height = innerHeight;
+        }
+        sz();
+        addEventListener("resize", sz);
+        var stars = Array.from({ length: 160 }, function () {
+          return {
+            rx: Math.random(),
+            ry: Math.random(),
+            r: Math.random() * 1.1 + 0.2,
+            p: Math.random() * 6.28,
+            sp: Math.random() * 0.005 + 0.002,
+          };
+        });
+        var blobs = [
+          { rx: 0.25, ry: 0.3, c: "155,127,232" },
+          { rx: 0.75, ry: 0.6, c: "196,122,138" },
+          { rx: 0.5, ry: 0.85, c: "201,169,110" },
+        ];
+        (function draw() {
+          x.clearRect(0, 0, W, H);
+          blobs.forEach(function (b) {
+            var bx = b.rx * W + Math.sin(t * 0.3) * W * 0.03,
+              by = b.ry * H + Math.cos(t * 0.25) * H * 0.025;
+            var g = x.createRadialGradient(
+              bx,
+              by,
+              0,
+              bx,
+              by,
+              0.44 * Math.max(W, H),
+            );
+            g.addColorStop(0, "rgba(" + b.c + ",.04)");
+            g.addColorStop(1, "rgba(" + b.c + ",0)");
+            x.fillStyle = g;
+            x.fillRect(0, 0, W, H);
+          });
+          stars.forEach(function (s) {
+            var a = 0.1 + 0.65 * Math.abs(Math.sin(s.p + t * s.sp));
+            x.beginPath();
+            x.arc(s.rx * W, s.ry * H, s.r, 0, 6.28);
+            x.fillStyle = "rgba(240,232,216," + a * 0.58 + ")";
+            x.fill();
+          });
+          t += 0.008;
+          requestAnimationFrame(draw);
+        })();
+      })();
+
+      /* ══ MODAL ══ */
+      var modal = document.getElementById("gm");
+      document
+        .getElementById("petalBtn")
+        .addEventListener("click", function () {
+          modal.classList.add("open");
+          resetGame();
+          showOv("ov-start");
+        });
+      document.getElementById("gcls").addEventListener("click", function () {
+        modal.classList.remove("open");
+        stopGame();
+      });
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+          modal.classList.remove("open");
+          stopGame();
+        }
+      });
+
+      /* ══════════════════════════════════════════
+   GAME ENGINE — Dino-style, device-responsive
+══════════════════════════════════════════ */
+      var cv = document.getElementById("gc"),
+        cx = cv.getContext("2d"),
+        arena = document.getElementById("garena");
+
+      /*
+  Difficulty curve:
+  - Speed starts at BASE_SPD, increases SLOWLY and continuously
+  - Obstacle gap also shrinks slowly
+  - Each stage starts fresh but carries accumulated speed to feel harder
+  - Obstacles now have varying heights (low + high obstacles so player must judge)
+  - Stars require collecting N per stage (increasing), stage lasts longer
+*/
+      var STAGES = [
+        {
+          need: 10,
+          startSpd: 220,
+          skyA: "#110820",
+          skyB: "#1e0d35",
+          gA: "#2a1240",
+          gB: "#0e0820",
+          obs: ["🧸", "🍼", "🎈"],
+          cols: ["⭐", "🍬", "🎀"],
+          bg: ["🌙", "☁️", "✨"],
+        },
+        {
+          need: 14,
+          startSpd: 255,
+          skyA: "#071528",
+          skyB: "#0d2040",
+          gA: "#102a14",
+          gB: "#060e08",
+          obs: ["📚", "✏️", "🎒"],
+          cols: ["⭐", "📐", "🌈"],
+          bg: ["☀️", "🏫", "🌤️"],
+        },
+        {
+          need: 18,
+          startSpd: 290,
+          skyA: "#0c1422",
+          skyB: "#162038",
+          gA: "#201008",
+          gB: "#0a0804",
+          obs: ["💻", "📖", "☕"],
+          cols: ["⭐", "💡", "🔬"],
+          bg: ["🌙", "🏛️", "⭐"],
+        },
+        {
+          need: 22,
+          startSpd: 325,
+          skyA: "#071408",
+          skyB: "#122018",
+          gA: "#142010",
+          gB: "#060e08",
+          obs: ["💊", "🩺", "🧬"],
+          cols: ["⭐", "❤️", "🌸"],
+          bg: ["✨", "💫", "🌟"],
+        },
+      ];
+
+      /* game state */
+      var running = false,
+        raf = null,
+        lastTs = 0;
+      var si = 0,
+        score = 0,
+        lives = 3,
+        sstars = 0;
+      /* canvas logical size — always read from canvas element */
+      var GW, GH, GND; // GND = ground Y in px
+      /* character — position in logical px from ground */
+      var PX,
+        PY = 0,
+        PVY = 0,
+        onG = true,
+        walkT = 0;
+      /* speed in px/sec, increases over time */
+      var spd = 0,
+        spdAccel = 8; // px/s per second acceleration
+      /* obstacle/collectible lists */
+      var obstacles = [],
+        collectibles = [],
+        sparks = [];
+      /* timers in seconds */
+      var obTimer = 0,
+        colTimer = 0,
+        gameSec = 0,
+        bgOff = 0;
+      /* transition fade */
+      var fadingOut = false,
+        fadeIn = false,
+        fadeAlpha = 0;
+
+      /* GRAVITY & JUMP tuned for px/sec system */
+      var GRAV = 1400; // px/s^2
+      var JUMP_V = -620; // px/s (tuned for ~nice arc at any screen size)
+
+      function sizeCanvas() {
+        var w = arena.clientWidth,
+          h = arena.clientHeight;
+        if (w < 10 || h < 10) return; // guard against zero on mobile before layout
+        if (cv.width === w && cv.height === h) return; // skip if unchanged — prevents flicker
+        GW = cv.width = w;
+        GH = cv.height = h;
+        GND = GH - Math.round(GH * 0.22);
+        PX = Math.round(GW * 0.13);
+      }
+
+      function resetGame() {
+        si = 0;
+        score = 0;
+        lives = 3;
+        sstars = 0;
+        PY = 0;
+        PVY = 0;
+        onG = true;
+        walkT = 0;
+        obstacles = [];
+        collectibles = [];
+        sparks = [];
+        spd = STAGES[0].startSpd;
+        obTimer = 0;
+        colTimer = 0;
+        gameSec = 0;
+        bgOff = 0;
+        fadingOut = false;
+        fadeIn = false;
+        fadeAlpha = 0;
+        // delay sizeCanvas so mobile has time to render the modal layout
+        setTimeout(function () {
+          sizeCanvas();
+          hud();
+          dots();
+        }, 60);
+        hud();
+        dots();
+      }
+
+      function nextStage() {
+        si++;
+        sstars = 0;
+        obstacles = [];
+        collectibles = [];
+        spd = STAGES[si].startSpd;
+        obTimer = 0;
+        colTimer = 0;
+        hud();
+        dots();
+      }
+
+      function hud() {
+        var S = STAGES[si];
+        document.getElementById("glives").textContent = "❤️".repeat(
+          Math.max(0, lives),
+        );
+        document.getElementById("gscv").textContent = score;
+        document.getElementById("gpl").textContent =
+          "level " + (si + 1) + " / 4";
+        document.getElementById("gps").textContent = sstars + " / " + S.need;
+        document.getElementById("gpf").style.width =
+          Math.min(100, (sstars / S.need) * 100) + "%";
+      }
+      function dots() {
+        for (var i = 0; i < 4; i++) {
+          var d = document.getElementById("sd" + i);
+          if (d)
+            d.className = "sd" + (i < si ? " done" : i === si ? " cur" : "");
+        }
+      }
+      function showOv(id) {
+        document.querySelectorAll(".gov").forEach(function (e) {
+          e.classList.remove("show");
+        });
+        if (id) document.getElementById(id).classList.add("show");
+      }
+      function startGame() {
+        sizeCanvas();
+        running = true;
+        lastTs = performance.now();
+        if (!raf) raf = requestAnimationFrame(loop);
+      }
+      function stopGame() {
+        running = false;
+        if (raf) {
+          cancelAnimationFrame(raf);
+          raf = null;
+        }
+      }
+
+      /* buttons */
+      document
+        .getElementById("btn-start")
+        .addEventListener("click", function () {
+          showOv(null);
+          startGame();
+        });
+      document
+        .getElementById("btn-retry")
+        .addEventListener("click", function () {
+          lives = 3;
+          sstars = 0;
+          obstacles = [];
+          collectibles = [];
+          sparks = [];
+          PY = 0;
+          PVY = 0;
+          onG = true;
+          spd = STAGES[si].startSpd;
+          obTimer = 0;
+          colTimer = 0;
+          hud();
+          showOv(null);
+          startGame();
+        });
+      document.getElementById("btn-win").addEventListener("click", function () {
+        resetGame();
+        showOv("ov-start");
+      });
+
+      /* jump */
+      function jump() {
+        if (running && onG && !fadingOut) {
+          PVY = JUMP_V;
+          onG = false;
+          var n = 5;
+          while (n--)
+            sparks.push({
+              x: PX,
+              y: GND,
+              vx: (Math.random() - 0.5) * 80,
+              vy: -Math.random() * 120 - 60,
+              life: 1,
+              col: "#c9a96e",
+              r: 2,
+            });
+        }
+      }
+      arena.addEventListener("pointerdown", function (e) {
+        e.preventDefault();
+        jump();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Space") {
+          e.preventDefault();
+          jump();
+        }
+      });
+
+      /* ── MAIN LOOP ── */
+      function loop(ts) {
+        if (!running) {
+          raf = null;
+          return;
+        }
+        var dt = Math.min((ts - lastTs) / 1000, 0.05);
+        lastTs = ts;
+
+        // guard: if canvas has no size yet (mobile layout delay), skip frame
+        if (!GW || !GH) {
+          raf = requestAnimationFrame(loop);
+          return;
+        }
+
+        var S = STAGES[si];
+
+        /* fade transition between levels */
+        if (fadingOut) {
+          fadeAlpha += dt * 2.5;
+          var drawSi = si;
+          if (fadeAlpha >= 1) {
+            fadeAlpha = 1;
+            nextStage();
+            fadingOut = false;
+            fadeIn = true;
+          }
+          drawFrame(STAGES[drawSi]);
+          overlayFade();
+          raf = requestAnimationFrame(loop);
+          return;
+        }
+        if (fadeIn) {
+          fadeAlpha -= dt * 1.8;
+          if (fadeAlpha <= 0) {
+            fadeIn = false;
+            fadeAlpha = 0;
+          }
+          drawFrame(STAGES[si]);
+          overlayFade();
+          raf = requestAnimationFrame(loop);
+          return;
+        }
+
+        gameSec += dt;
+        bgOff += dt;
+        walkT += dt;
+
+        /* speed ramps up continuously, smoothly */
+        spd += spdAccel * dt;
+
+        /* obstacle spawn — gap shrinks as speed increases, but not too fast */
+        obTimer -= dt;
+        if (obTimer <= 0) {
+          spawnObstacle(S);
+          /* gap between 0.9s (slow) and 1.6s (max clamp) — gentle ramp */
+          var gap = Math.max(0.9, 1.9 - (spd - S.startSpd) * 0.0015);
+          obTimer = gap * (0.85 + Math.random() * 0.3);
+        }
+        colTimer -= dt;
+        if (colTimer <= 0) {
+          collectibles.push({
+            x: GW + 30,
+            y: GND - GH * 0.15 - Math.random() * GH * 0.25,
+            em: S.cols[~~(Math.random() * S.cols.length)],
+            bob: Math.random() * 6.28,
+          });
+          colTimer = 0.9 + Math.random() * 0.7;
+        }
+
+        /* move entities */
+        var i;
+        for (i = obstacles.length - 1; i >= 0; i--) {
+          obstacles[i].x -= spd * dt;
+          if (obstacles[i].x < -80) obstacles.splice(i, 1);
+        }
+        for (i = collectibles.length - 1; i >= 0; i--) {
+          collectibles[i].x -= spd * dt;
+          if (collectibles[i].x < -60) collectibles.splice(i, 1);
+        }
+        for (i = sparks.length - 1; i >= 0; i--) {
+          var sp = sparks[i];
+          sp.x += sp.vx * dt;
+          sp.y += sp.vy * dt;
+          sp.vy += 800 * dt;
+          sp.life -= dt * 2.5;
+          if (sp.life <= 0) sparks.splice(i, 1);
+        }
+
+        /* physics — px/sec^2 */
+        PVY += GRAV * dt;
+        PY += PVY * dt;
+        if (PY >= 0) {
+          PY = 0;
+          PVY = 0;
+          onG = true;
+        } else {
+          onG = false;
+        }
+
+        /* hitbox — slightly forgiving (80% of visual) */
+        var charH = GH * 0.18; // character visual height approx
+        var charW = GH * 0.065;
+        var gy = GND + PY;
+        var cL = PX - charW * 0.5,
+          cR = PX + charW * 0.5;
+        var cT = gy - charH * 0.92,
+          cB = gy + GH * 0.015;
+
+        /* obstacle collision */
+        var hit = false;
+        for (i = obstacles.length - 1; i >= 0; i--) {
+          var o = obstacles[i];
+          if (
+            cR - charW * 0.15 > o.x &&
+            cL + charW * 0.15 < o.x + o.w &&
+            cB - GH * 0.01 > o.y &&
+            cT + charH * 0.12 < o.y + o.h
+          ) {
+            obstacles.splice(i, 1);
+            hit = true;
+            var k = 8;
+            while (k--)
+              sparks.push({
+                x: PX,
+                y: gy - charH * 0.5,
+                vx: (Math.random() - 0.5) * 120,
+                vy: -Math.random() * 180 - 60,
+                life: 1,
+                col: "#e85060",
+                r: 3,
+              });
+            break;
+          }
+        }
+        if (hit) {
+          lives = Math.max(0, lives - 1);
+          hud();
+          if (lives <= 0) {
+            running = false;
+            drawFrame(S);
+            showOv("ov-over");
+            raf = null;
+            return;
+          }
+        }
+
+        /* collect stars */
+        for (i = collectibles.length - 1; i >= 0; i--) {
+          var c = collectibles[i];
+          var cRad = GH * 0.04;
+          if (
+            Math.abs(PX - c.x) < cRad * 3 &&
+            Math.abs(gy - charH * 0.5 - c.y) < cRad * 3
+          ) {
+            collectibles.splice(i, 1);
+            score++;
+            sstars++;
+            var k = 6;
+            while (k--)
+              sparks.push({
+                x: c.x,
+                y: c.y,
+                vx: (Math.random() - 0.5) * 100,
+                vy: -Math.random() * 120 - 40,
+                life: 1,
+                col: ["#f5e045", "#f0d080", "#fff"][~~(Math.random() * 3)],
+                r: 2.5,
+              });
+            hud();
+            if (sstars >= S.need) {
+              if (si >= 3) {
+                running = false;
+                drawFrame(S);
+                showOv("ov-win");
+                raf = null;
+                return;
+              } else {
+                fadingOut = true;
+                fadeAlpha = 0;
+              }
+            }
+          }
+        }
+
+        drawFrame(S);
+        raf = requestAnimationFrame(loop);
+      }
+
+      function overlayFade() {
+        cx.fillStyle =
+          "rgba(13,11,18," + Math.min(1, Math.max(0, fadeAlpha)) + ")";
+        cx.fillRect(0, 0, GW, GH);
+      }
+
+      function spawnObstacle(S) {
+        var em = S.obs[~~(Math.random() * S.obs.length)];
+        /* vary obstacle height — some low (duck under impossible, must jump over),
+     some very low (ground-level, easy), some medium */
+        var minH = Math.min(GH * 0.06, 28),
+          maxH = Math.min(GH * 0.13, 42);
+        var h = minH + Math.random() * (maxH - minH);
+        var w = h * 0.9;
+        obstacles.push({ x: GW + w + 20, y: GND - h, w: w, h: h, em: em });
+      }
+
+      /* cached gradients — only rebuilt when canvas size or stage changes */
+      var _skyG = null,
+        _gndG = null,
+        _cacheW = 0,
+        _cacheH = 0,
+        _cacheSi = -1;
+      function getGrads(S) {
+        if (GW !== _cacheW || GH !== _cacheH || si !== _cacheSi) {
+          _skyG = cx.createLinearGradient(0, 0, 0, GND);
+          _skyG.addColorStop(0, S.skyA);
+          _skyG.addColorStop(1, S.skyB);
+          _gndG = cx.createLinearGradient(0, GND, 0, GH);
+          _gndG.addColorStop(0, S.gA);
+          _gndG.addColorStop(1, S.gB);
+          _cacheW = GW;
+          _cacheH = GH;
+          _cacheSi = si;
+        }
+        return { sky: _skyG, gnd: _gndG };
+      }
+
+      /* obstacle colours per level — shapes, no emoji */
+      var OBS_COLS = [
+        ["#c05888", "#e880b0", "#f8b8d8"],
+        ["#305898", "#4878c8", "#88aee8"],
+        ["#785010", "#b87820", "#e0b060"],
+        ["#206840", "#30a860", "#70d898"],
+      ];
+
+      /* ── DRAW ── */
+      function drawFrame(S) {
+        cx.clearRect(0, 0, GW, GH);
+        var g = getGrads(S);
+
+        /* sky */
+        cx.fillStyle = g.sky;
+        cx.fillRect(0, 0, GW, GND);
+
+        /* bg emoji — only 3 items, slow, acceptable */
+        cx.font = Math.round(GH * 0.046) + "px sans-serif";
+        cx.textAlign = "left";
+        cx.textBaseline = "top";
+        cx.globalAlpha = 0.16;
+        S.bg.forEach(function (d, i) {
+          var bx =
+            GW * 1.05 -
+            ((gameSec * spd * 0.016 + i * (GW / 3) + GW * 0.08) % (GW * 1.1));
+          var by =
+            GH * 0.04 +
+            i * (GH * 0.052) +
+            Math.sin(gameSec * 1.1 + i) * GH * 0.011;
+          cx.fillText(d, bx, by);
+        });
+        cx.globalAlpha = 1;
+
+        /* ground */
+        cx.fillStyle = g.gnd;
+        cx.fillRect(0, GND, GW, GH - GND);
+        cx.strokeStyle = "rgba(255,255,255,.08)";
+        cx.lineWidth = 1;
+        cx.beginPath();
+        cx.moveTo(0, GND);
+        cx.lineTo(GW, GND);
+        cx.stroke();
+        cx.strokeStyle = "rgba(255,255,255,.04)";
+        cx.setLineDash([18, 42]);
+        cx.lineDashOffset = -((gameSec * spd) % 60);
+        cx.beginPath();
+        cx.moveTo(0, GND + 7);
+        cx.lineTo(GW, GND + 7);
+        cx.stroke();
+        cx.setLineDash([]);
+
+        /* obstacles — coloured rounded shapes, fast */
+        var oc = OBS_COLS[si];
+        obstacles.forEach(function (o) {
+          var r = Math.min(o.w, o.h) * 0.22;
+          cx.fillStyle = oc[0];
+          cx.beginPath();
+          cx.roundRect(o.x, o.y, o.w, o.h, r);
+          cx.fill();
+          cx.fillStyle = oc[1];
+          cx.beginPath();
+          cx.roundRect(
+            o.x + o.w * 0.1,
+            o.y + o.h * 0.1,
+            o.w * 0.8,
+            o.h * 0.32,
+            r * 0.6,
+          );
+          cx.fill();
+          cx.fillStyle = oc[2];
+          cx.globalAlpha = 0.35;
+          cx.beginPath();
+          cx.ellipse(
+            o.x + o.w * 0.3,
+            o.y + o.h * 0.22,
+            o.w * 0.12,
+            o.h * 0.07,
+            -0.4,
+            0,
+            6.28,
+          );
+          cx.fill();
+          cx.globalAlpha = 1;
+        });
+
+        /* collectibles — 5-point star shape, no emoji */
+        collectibles.forEach(function (c) {
+          var bob = Math.sin(gameSec * 3.5 + c.bob) * GH * 0.01;
+          var cy2 = c.y + bob;
+          var r = GH * 0.022;
+          /* glow */
+          cx.globalAlpha = 0.22 + 0.08 * Math.sin(gameSec * 4 + c.bob);
+          cx.fillStyle = "#f0d050";
+          cx.beginPath();
+          cx.arc(c.x, cy2, r * 2, 0, 6.28);
+          cx.fill();
+          cx.globalAlpha = 1;
+          /* star */
+          cx.fillStyle = "#f5e045";
+          cx.strokeStyle = "#c89010";
+          cx.lineWidth = 1.2;
+          cx.beginPath();
+          for (var pt = 0; pt < 5; pt++) {
+            var ao = pt * 1.2566 - 1.5708,
+              ai = ao + 0.6283;
+            pt === 0
+              ? cx.moveTo(c.x + Math.cos(ao) * r, cy2 + Math.sin(ao) * r)
+              : cx.lineTo(c.x + Math.cos(ao) * r, cy2 + Math.sin(ao) * r);
+            cx.lineTo(
+              c.x + Math.cos(ai) * r * 0.42,
+              cy2 + Math.sin(ai) * r * 0.42,
+            );
+          }
+          cx.closePath();
+          cx.fill();
+          cx.stroke();
+        });
+
+        /* sparks — tiny circles, very fast */
+        sparks.forEach(function (s) {
+          cx.globalAlpha = Math.max(0, s.life) * 0.85;
+          cx.fillStyle = s.col;
+          cx.beginPath();
+          cx.arc(s.x, s.y, s.r, 0, 6.28);
+          cx.fill();
+        });
+        cx.globalAlpha = 1;
+
+        /* character */
+        drawChar(PX, GND + PY, si, walkT, GH);
+      }
+
+      /* ═══════════════════════════════════════════════════
+   CHARACTER — all coords relative to GH so it scales
+   on any screen size
+═══════════════════════════════════════════════════ */
+      /* draw a rotated roundRect without save/restore — much faster */
+      function rotRR(tx, ty, w, h, r, angle) {
+        var cos = Math.cos(angle),
+          sin = Math.sin(angle);
+        cx.setTransform(cos, sin, -sin, cos, tx, ty);
+        cx.beginPath();
+        cx.roundRect(-w / 2, -h / 2, w, h, r);
+        cx.fill();
+        cx.setTransform(1, 0, 0, 1, 0, 0);
+      }
+
+      var _SC = 1;
+      function p(v) {
+        return v * _SC;
+      }
+
+      function drawChar(x, gnd, s, wt, GH) {
+        _SC = GH / 600;
+        var bn = onG ? Math.sin(wt * 5.5) * p(1.2) : 0;
+        var ty = gnd + bn;
+        var sw = onG ? Math.sin(wt * 5.5) * p(8) : 0;
+        var SK = "#f2ddc8",
+          HR = "#1c1010";
+
+        // shadow — no save/restore, just set alpha directly
+        cx.globalAlpha = 0.12;
+        cx.fillStyle = "#000";
+        cx.beginPath();
+        cx.ellipse(x, gnd + p(4), p(16), p(5), 0, 0, 6.28);
+        cx.fill();
+        cx.globalAlpha = 1;
+
+        if (s === 0) {
+          // legs (batched: both legs same color same path via rotRR)
+          cx.fillStyle = "#f0d0e8";
+          rotRR(x - p(5), ty - p(4), p(10), p(16), p(5), sw * 0.006);
+          rotRR(x + p(5), ty - p(4), p(10), p(16), p(5), -sw * 0.006);
+          // body (same color as legs — draw together)
+          cx.beginPath();
+          cx.roundRect(x - p(13), ty - p(32), p(26), p(26), p(9));
+          cx.fill();
+          // arms
+          rotRR(x - p(16), ty - p(22), p(10), p(17), p(5), -0.35 + sw * 0.005);
+          rotRR(x + p(16), ty - p(22), p(10), p(17), p(5), 0.35 - sw * 0.005);
+          // pink accents batched
+          cx.fillStyle = "#d080a8";
+          cx.beginPath();
+          cx.ellipse(x - p(5), ty + p(6), p(7), p(5), 0, 0, 6.28);
+          cx.ellipse(x + p(5), ty + p(6), p(7), p(5), 0, 0, 6.28);
+          cx.ellipse(x, ty - p(8), p(3), p(2), 0, 0, 6.28);
+          cx.fill();
+          // skin batched: fists+neck+head+ears
+          cx.fillStyle = SK;
+          cx.beginPath();
+          cx.ellipse(x - p(17), ty - p(7), p(6), p(5.5), 0, 0, 6.28);
+          cx.ellipse(x + p(17), ty - p(7), p(6), p(5.5), 0, 0, 6.28);
+          cx.ellipse(x, ty - p(33), p(6), p(6), 0, 0, 6.28);
+          cx.arc(x, ty - p(47), p(15), 0, 6.28);
+          cx.ellipse(x - p(14), ty - p(47), p(4.5), p(5.5), 0, 0, 6.28);
+          cx.ellipse(x + p(14), ty - p(47), p(4.5), p(5.5), 0, 0, 6.28);
+          cx.fill();
+          // ear inner
+          cx.fillStyle = "#e0c0a0";
+          cx.beginPath();
+          cx.ellipse(x - p(14), ty - p(47), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(14), ty - p(47), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          // cheeks
+          cx.fillStyle = "rgba(230,128,142,.45)";
+          cx.beginPath();
+          cx.ellipse(x - p(9), ty - p(44), p(5.5), p(4), 0, 0, 6.28);
+          cx.ellipse(x + p(9), ty - p(44), p(5.5), p(4), 0, 0, 6.28);
+          cx.fill();
+          // eyes
+          cx.fillStyle = "#2a1e38";
+          cx.beginPath();
+          cx.ellipse(x - p(5.5), ty - p(49), p(3), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(5.5), ty - p(49), p(3), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#fff";
+          cx.beginPath();
+          cx.ellipse(x - p(4), ty - p(50), p(1.3), p(1.5), 0, 0, 6.28);
+          cx.ellipse(x + p(7), ty - p(50), p(1.3), p(1.5), 0, 0, 6.28);
+          cx.fill();
+          // nose+smile
+          cx.fillStyle = "rgba(180,120,108,.55)";
+          cx.beginPath();
+          cx.arc(x, ty - p(46), p(1.3), 0, 6.28);
+          cx.fill();
+          cx.strokeStyle = "#b07080";
+          cx.lineWidth = p(1.6);
+          cx.lineCap = "round";
+          cx.beginPath();
+          cx.arc(x, ty - p(42), p(4), 0.25, Math.PI - 0.25);
+          cx.stroke();
+          // hair batched
+          cx.fillStyle = HR;
+          cx.beginPath();
+          cx.ellipse(x, ty - p(59), p(10), p(7), 0, Math.PI, Math.PI * 2);
+          cx.ellipse(
+            x - p(8),
+            ty - p(57),
+            p(6),
+            p(5),
+            -0.25,
+            Math.PI,
+            Math.PI * 2,
+          );
+          cx.ellipse(
+            x + p(8),
+            ty - p(57),
+            p(6),
+            p(5),
+            0.25,
+            Math.PI,
+            Math.PI * 2,
+          );
+          cx.fill();
+        } else if (s === 1) {
+          // legs+socks
+          cx.fillStyle = "#f5f5f5";
+          rotRR(x - p(5), ty - p(4), p(10), p(15), p(4), sw * 0.006);
+          rotRR(x + p(5), ty - p(4), p(10), p(15), p(4), -sw * 0.006);
+          // shoes batched
+          cx.fillStyle = "#181020";
+          cx.beginPath();
+          cx.ellipse(x - p(5), ty + p(6), p(7.5), p(4.5), 0, 0, 6.28);
+          cx.ellipse(x + p(5), ty + p(6), p(7.5), p(4.5), 0, 0, 6.28);
+          cx.fill();
+          // skirt+bodice (similar white)
+          cx.fillStyle = "#f3f3f3";
+          cx.beginPath();
+          cx.moveTo(x - p(9), ty - p(20));
+          cx.lineTo(x + p(9), ty - p(20));
+          cx.lineTo(x + p(19), ty - p(4));
+          cx.lineTo(x - p(19), ty - p(4));
+          cx.closePath();
+          cx.fill();
+          cx.fillStyle = "#f0f0f0";
+          cx.beginPath();
+          cx.roundRect(x - p(10), ty - p(35), p(20), p(17), p(2));
+          cx.fill();
+          // sleeves
+          rotRR(x - p(13), ty - p(31), p(10), p(10), p(3), -0.1 + sw * 0.003);
+          rotRR(x + p(13), ty - p(31), p(10), p(10), p(3), 0.1 - sw * 0.003);
+          // waistband
+          cx.fillStyle = "#ddd";
+          cx.beginPath();
+          cx.rect(x - p(10), ty - p(21), p(20), p(2));
+          cx.fill();
+          // collar
+          cx.fillStyle = "#fff";
+          cx.beginPath();
+          cx.moveTo(x - p(8), ty - p(35));
+          cx.lineTo(x - p(1), ty - p(30));
+          cx.lineTo(x - p(5), ty - p(35));
+          cx.closePath();
+          cx.moveTo(x + p(8), ty - p(35));
+          cx.lineTo(x + p(1), ty - p(30));
+          cx.lineTo(x + p(5), ty - p(35));
+          cx.closePath();
+          cx.fill();
+          // arms
+          cx.fillStyle = SK;
+          rotRR(x - p(13), ty - p(22), p(8), p(13), p(4), -0.05 + sw * 0.003);
+          rotRR(x + p(13), ty - p(22), p(8), p(13), p(4), 0.05 - sw * 0.003);
+          cx.beginPath();
+          cx.ellipse(x - p(13), ty - p(11), p(4.5), p(4.5), 0, 0, 6.28);
+          cx.ellipse(x + p(13), ty - p(11), p(4.5), p(4.5), 0, 0, 6.28);
+          cx.fill();
+          // tie
+          cx.fillStyle = "#0a1858";
+          cx.beginPath();
+          cx.moveTo(x - p(4), ty - p(35));
+          cx.lineTo(x + p(4), ty - p(35));
+          cx.lineTo(x + p(5), ty - p(19));
+          cx.lineTo(x, ty - p(13));
+          cx.lineTo(x - p(5), ty - p(19));
+          cx.closePath();
+          cx.fill();
+          cx.fillStyle = "#1830a0";
+          cx.beginPath();
+          cx.moveTo(x - p(1), ty - p(35));
+          cx.lineTo(x + p(1), ty - p(35));
+          cx.lineTo(x + p(1.2), ty - p(23));
+          cx.lineTo(x, ty - p(18));
+          cx.lineTo(x - p(1.2), ty - p(23));
+          cx.closePath();
+          cx.fill();
+          // skin: neck+head+ears batched
+          cx.fillStyle = SK;
+          cx.beginPath();
+          cx.ellipse(x, ty - p(36), p(5.5), p(5.5), 0, 0, 6.28);
+          cx.arc(x, ty - p(48), p(13), 0, 6.28);
+          cx.ellipse(x - p(12), ty - p(48), p(4), p(5), 0, 0, 6.28);
+          cx.ellipse(x + p(12), ty - p(48), p(4), p(5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#e0c0a0";
+          cx.beginPath();
+          cx.ellipse(x - p(12), ty - p(48), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(12), ty - p(48), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          // blush
+          cx.fillStyle = "rgba(225,128,142,.38)";
+          cx.beginPath();
+          cx.ellipse(x - p(7.5), ty - p(46), p(4.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(7.5), ty - p(46), p(4.5), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          // eyes
+          cx.fillStyle = "#2a1e38";
+          cx.beginPath();
+          cx.ellipse(x - p(4.5), ty - p(50), p(2.5), p(2.8), 0, 0, 6.28);
+          cx.ellipse(x + p(4.5), ty - p(50), p(2.5), p(2.8), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#fff";
+          cx.beginPath();
+          cx.ellipse(x - p(3.2), ty - p(51), p(1.1), p(1.3), 0, 0, 6.28);
+          cx.ellipse(x + p(5.8), ty - p(51), p(1.1), p(1.3), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "rgba(175,112,102,.52)";
+          cx.beginPath();
+          cx.arc(x, ty - p(47.5), p(1.2), 0, 6.28);
+          cx.fill();
+          cx.strokeStyle = "#a06070";
+          cx.lineWidth = p(1.3);
+          cx.lineCap = "round";
+          cx.beginPath();
+          cx.arc(x, ty - p(44), p(3.5), 0.22, Math.PI - 0.22);
+          cx.stroke();
+          // hair top + braids batched in one path
+          cx.fillStyle = HR;
+          cx.beginPath();
+          cx.ellipse(x, ty - p(59), p(12), p(8), 0, Math.PI, Math.PI * 2);
+          cx.ellipse(x, ty - p(59), p(12), p(8), 0, 0, Math.PI);
+          cx.roundRect(x - p(16), ty - p(55), p(8), p(45), p(4));
+          cx.roundRect(x + p(8), ty - p(55), p(8), p(45), p(4));
+          cx.fill();
+        } else if (s === 2) {
+          var BL = "#1a52cc";
+          // trousers
+          cx.fillStyle = BL;
+          rotRR(x - p(5), ty - p(4), p(10), p(15), p(3), sw * 0.006);
+          rotRR(x + p(5), ty - p(4), p(10), p(15), p(3), -sw * 0.006);
+          // shoes
+          cx.fillStyle = "#181828";
+          cx.beginPath();
+          cx.ellipse(x - p(5), ty + p(5), p(7), p(4.5), 0, 0, 6.28);
+          cx.ellipse(x + p(5), ty + p(5), p(7), p(4.5), 0, 0, 6.28);
+          cx.fill();
+          // scrubs top + arms batched
+          cx.fillStyle = BL;
+          cx.beginPath();
+          cx.roundRect(x - p(12), ty - p(34), p(24), p(28), p(3));
+          cx.fill();
+          rotRR(x - p(15), ty - p(26), p(10), p(18), p(3), -0.12 + sw * 0.004);
+          rotRR(x + p(15), ty - p(26), p(10), p(18), p(3), 0.12 - sw * 0.004);
+          // dark detail
+          cx.fillStyle = "#1238a0";
+          cx.beginPath();
+          cx.moveTo(x - p(5), ty - p(34));
+          cx.lineTo(x, ty - p(26));
+          cx.lineTo(x + p(5), ty - p(34));
+          cx.closePath();
+          cx.roundRect(x + p(4), ty - p(30), p(8), p(7), p(1));
+          cx.fill();
+          // badge
+          cx.fillStyle = "#fff";
+          cx.beginPath();
+          cx.arc(x + p(8), ty - p(27), p(3), 0, 6.28);
+          cx.fill();
+          cx.fillStyle = BL;
+          cx.beginPath();
+          cx.arc(x + p(8), ty - p(27), p(2), 0, 6.28);
+          cx.fill();
+          // hands
+          cx.fillStyle = SK;
+          cx.beginPath();
+          cx.ellipse(x - p(15), ty - p(10), p(5), p(5), 0, 0, 6.28);
+          cx.ellipse(x + p(15), ty - p(10), p(5), p(5), 0, 0, 6.28);
+          cx.fill();
+          // stethoscope
+          cx.strokeStyle = "#0a0a18";
+          cx.lineWidth = p(2.2);
+          cx.lineCap = "round";
+          cx.beginPath();
+          cx.moveTo(x - p(4), ty - p(32));
+          cx.bezierCurveTo(
+            x - p(10),
+            ty - p(23),
+            x + p(10),
+            ty - p(23),
+            x + p(4),
+            ty - p(32),
+          );
+          cx.stroke();
+          cx.fillStyle = "#b0b0c0";
+          cx.beginPath();
+          cx.arc(x, ty - p(21), p(2.8), 0, 6.28);
+          cx.fill();
+          // skin: neck+head+ears
+          cx.fillStyle = SK;
+          cx.beginPath();
+          cx.ellipse(x, ty - p(36), p(5.5), p(5.5), 0, 0, 6.28);
+          cx.arc(x, ty - p(49), p(13), 0, 6.28);
+          cx.ellipse(x - p(12), ty - p(49), p(4), p(5), 0, 0, 6.28);
+          cx.ellipse(x + p(12), ty - p(49), p(4), p(5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#e0c0a0";
+          cx.beginPath();
+          cx.ellipse(x - p(12), ty - p(49), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(12), ty - p(49), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "rgba(225,128,142,.38)";
+          cx.beginPath();
+          cx.ellipse(x - p(7.5), ty - p(47), p(4.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(7.5), ty - p(47), p(4.5), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#2a1e38";
+          cx.beginPath();
+          cx.ellipse(x - p(4.5), ty - p(51), p(2.5), p(2.8), 0, 0, 6.28);
+          cx.ellipse(x + p(4.5), ty - p(51), p(2.5), p(2.8), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#fff";
+          cx.beginPath();
+          cx.ellipse(x - p(3.2), ty - p(52), p(1.1), p(1.3), 0, 0, 6.28);
+          cx.ellipse(x + p(5.8), ty - p(52), p(1.1), p(1.3), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "rgba(175,112,102,.52)";
+          cx.beginPath();
+          cx.arc(x, ty - p(48.5), p(1.2), 0, 6.28);
+          cx.fill();
+          cx.strokeStyle = "#a06070";
+          cx.lineWidth = p(1.3);
+          cx.lineCap = "round";
+          cx.beginPath();
+          cx.arc(x, ty - p(45), p(3.5), 0.22, Math.PI - 0.22);
+          cx.stroke();
+          // hair+ponytail
+          cx.fillStyle = HR;
+          cx.beginPath();
+          cx.ellipse(x, ty - p(60), p(12), p(8), 0, Math.PI, Math.PI * 2);
+          cx.ellipse(x, ty - p(60), p(12), p(8), 0, 0, Math.PI);
+          cx.fill();
+          cx.strokeStyle = HR;
+          cx.lineWidth = p(7);
+          cx.lineCap = "round";
+          cx.beginPath();
+          cx.moveTo(x + p(11), ty - p(55));
+          cx.bezierCurveTo(
+            x + p(22),
+            ty - p(48),
+            x + p(24),
+            ty - p(32),
+            x + p(18),
+            ty - p(20),
+          );
+          cx.stroke();
+          cx.fillStyle = "#c06080";
+          cx.beginPath();
+          cx.arc(x + p(11), ty - p(55), p(5), 0, 6.28);
+          cx.fill();
+        } else {
+          // trousers+shoes
+          cx.fillStyle = "#2a2840";
+          rotRR(x - p(5), ty - p(4), p(10), p(15), p(3), sw * 0.006);
+          rotRR(x + p(5), ty - p(4), p(10), p(15), p(3), -sw * 0.006);
+          cx.fillStyle = "#181828";
+          cx.beginPath();
+          cx.ellipse(x - p(5), ty + p(5), p(7), p(4.5), 0, 0, 6.28);
+          cx.ellipse(x + p(5), ty + p(5), p(7), p(4.5), 0, 0, 6.28);
+          cx.fill();
+          // white coat body
+          cx.fillStyle = "#f0f0f0";
+          cx.beginPath();
+          cx.roundRect(x - p(14), ty - p(36), p(28), p(40), p(2));
+          cx.fill();
+          // coat arms
+          cx.fillStyle = "#eeeeee";
+          rotRR(x - p(16), ty - p(26), p(10), p(20), p(3), -0.1 + sw * 0.004);
+          rotRR(x + p(16), ty - p(26), p(10), p(20), p(3), 0.1 - sw * 0.004);
+          // lapels batched
+          cx.fillStyle = "#e0e0e0";
+          cx.beginPath();
+          cx.moveTo(x - p(14), ty - p(36));
+          cx.lineTo(x - p(2), ty - p(28));
+          cx.lineTo(x - p(14), ty - p(22));
+          cx.closePath();
+          cx.moveTo(x + p(14), ty - p(36));
+          cx.lineTo(x + p(2), ty - p(28));
+          cx.lineTo(x + p(14), ty - p(22));
+          cx.closePath();
+          cx.fill();
+          // shirt peek
+          cx.fillStyle = "#dde8f5";
+          cx.beginPath();
+          cx.moveTo(x - p(2), ty - p(36));
+          cx.lineTo(x + p(2), ty - p(36));
+          cx.lineTo(x + p(3), ty - p(24));
+          cx.lineTo(x, ty - p(20));
+          cx.lineTo(x - p(3), ty - p(24));
+          cx.closePath();
+          cx.fill();
+          // pocket+badge
+          cx.fillStyle = "#e2e2e2";
+          cx.beginPath();
+          cx.roundRect(x - p(12), ty - p(30), p(9), p(7), p(1));
+          cx.fill();
+          cx.fillStyle = "#ddd";
+          cx.beginPath();
+          cx.roundRect(x + p(4), ty - p(28), p(9), p(5), p(1));
+          cx.fill();
+          // stethoscope
+          cx.strokeStyle = "#1a1a2a";
+          cx.lineWidth = p(2.4);
+          cx.lineCap = "round";
+          cx.beginPath();
+          cx.moveTo(x - p(4), ty - p(34));
+          cx.bezierCurveTo(
+            x - p(11),
+            ty - p(24),
+            x + p(11),
+            ty - p(24),
+            x + p(4),
+            ty - p(34),
+          );
+          cx.stroke();
+          cx.fillStyle = "#c8c8d0";
+          cx.beginPath();
+          cx.arc(x, ty - p(21), p(3.2), 0, 6.28);
+          cx.fill();
+          // skin: hands+neck+head+ears batched
+          cx.fillStyle = SK;
+          cx.beginPath();
+          cx.ellipse(x - p(16), ty - p(8), p(5), p(5), 0, 0, 6.28);
+          cx.ellipse(x + p(16), ty - p(8), p(5), p(5), 0, 0, 6.28);
+          cx.ellipse(x, ty - p(38), p(5.5), p(5.5), 0, 0, 6.28);
+          cx.arc(x, ty - p(51), p(13), 0, 6.28);
+          cx.ellipse(x - p(12), ty - p(51), p(4), p(5), 0, 0, 6.28);
+          cx.ellipse(x + p(12), ty - p(51), p(4), p(5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#e0c0a0";
+          cx.beginPath();
+          cx.ellipse(x - p(12), ty - p(51), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(12), ty - p(51), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "rgba(225,128,142,.38)";
+          cx.beginPath();
+          cx.ellipse(x - p(7.5), ty - p(49), p(4.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x + p(7.5), ty - p(49), p(4.5), p(3.5), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#2a1e38";
+          cx.beginPath();
+          cx.ellipse(x - p(4.5), ty - p(53), p(2.5), p(2.8), 0, 0, 6.28);
+          cx.ellipse(x + p(4.5), ty - p(53), p(2.5), p(2.8), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#fff";
+          cx.beginPath();
+          cx.ellipse(x - p(3.2), ty - p(54), p(1.1), p(1.3), 0, 0, 6.28);
+          cx.ellipse(x + p(5.8), ty - p(54), p(1.1), p(1.3), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "rgba(175,112,102,.52)";
+          cx.beginPath();
+          cx.arc(x, ty - p(50.5), p(1.2), 0, 6.28);
+          cx.fill();
+          cx.strokeStyle = "#a06070";
+          cx.lineWidth = p(1.3);
+          cx.lineCap = "round";
+          cx.beginPath();
+          cx.arc(x, ty - p(47), p(3.5), 0.22, Math.PI - 0.22);
+          cx.stroke();
+          // bun batched
+          cx.fillStyle = HR;
+          cx.beginPath();
+          cx.ellipse(x, ty - p(62), p(12), p(8), 0, Math.PI, Math.PI * 2);
+          cx.ellipse(x, ty - p(62), p(12), p(8), 0, 0, Math.PI);
+          cx.arc(x, ty - p(64), p(8), 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#c06080";
+          cx.beginPath();
+          cx.arc(x, ty - p(64), p(4), 0, 6.28);
+          cx.fill();
+        }
+      }
+
+      window.addEventListener("resize", function () {
+        sizeCanvas();
+        if (GW) PX = Math.round(GW * 0.13);
+      });
+      // ResizeObserver catches mobile browser-bar show/hide and orientation changes
+      if (window.ResizeObserver) {
+        new ResizeObserver(function () {
+          sizeCanvas();
+          if (GW) PX = Math.round(GW * 0.13);
+        }).observe(arena);
+      }
+    </script>
+  </body>
+</html>

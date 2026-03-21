@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>ARMED</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💣</text></svg>"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+      :root {
+        --red: #ff2b2b;
+        --amber: #ffaa00;
+        --green: #00ff88;
+        --dim: #0a0a0c;
+        --panel: #0f1117;
+        --border: #1e2433;
+        --text: #8899bb;
+        --mono: "Share Tech Mono", monospace;
+        --display: "Bebas Neue", sans-serif;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--dim);
+        font-family: var(--mono);
+        color: var(--text);
+        cursor: crosshair;
+        touch-action: none;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.07) 2px,
+          rgba(0, 0, 0, 0.07) 4px
+        );
+        pointer-events: none;
+        z-index: 9999;
+      }
+      #cvs {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 100;
+        will-change: transform;
+      }
+      #ui {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        padding: clamp(12px, 3vw, 28px);
+        gap: clamp(8px, 2vw, 16px);
+        z-index: 10;
+        transition: opacity 0.3s;
+      }
+      #topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: clamp(8px, 1.5vw, 14px);
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .sys-tag {
+        font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+        letter-spacing: 0.25em;
+        color: var(--red);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .sys-tag::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 8px var(--red);
+        animation: blink 1.1s step-end infinite;
+      }
+      .sys-tag.amber {
+        color: var(--amber);
+      }
+      .sys-tag.amber::before {
+        background: var(--amber);
+        box-shadow: 0 0 8px var(--amber);
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .sys-id {
+        font-size: clamp(0.5rem, 0.82vw, 0.68rem);
+        letter-spacing: 0.15em;
+        opacity: 0.35;
+      }
+      #stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(14px, 3vh, 28px);
+        position: relative;
+      }
+      #ring-wrap {
+        position: relative;
+        width: clamp(180px, 44vmin, 340px);
+        height: clamp(180px, 44vmin, 340px);
+      }
+      #ring-svg {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+        overflow: visible;
+      }
+      .ring-track {
+        fill: none;
+        stroke: var(--border);
+        stroke-width: 1.5;
+      }
+      .ring-arc {
+        fill: none;
+        stroke: var(--red);
+        stroke-width: 2;
+        stroke-linecap: butt;
+        filter: drop-shadow(0 0 5px var(--red));
+        stroke-dasharray: 0 1000;
+        transition: stroke-dasharray 0.05s linear;
+      }
+      .ring-tick {
+        stroke: var(--border);
+        stroke-width: 1;
+      }
+      .ring-tick.hot {
+        stroke: var(--red);
+        filter: drop-shadow(0 0 3px var(--red));
+      }
+      #bomb-btn {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        background: none;
+        outline: none;
+        -webkit-appearance: none;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      #bomb-glyph {
+        font-size: clamp(64px, 15vmin, 120px);
+        line-height: 1;
+        transition:
+          transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+          filter 0.15s;
+        filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.8));
+        will-change: transform, filter;
+      }
+      #bomb-btn:active #bomb-glyph {
+        transform: scale(0.93);
+      }
+      #readouts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(6px, 1.2vw, 12px);
+        width: 100%;
+        max-width: 500px;
+      }
+      .readout {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        padding: clamp(8px, 1.5vw, 14px) clamp(10px, 2vw, 16px);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        position: relative;
+        overflow: hidden;
+      }
+      .readout::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border),
+          transparent
+        );
+      }
+      .readout-label {
+        font-size: clamp(0.45rem, 0.7vw, 0.6rem);
+        letter-spacing: 0.2em;
+        opacity: 0.38;
+        text-transform: uppercase;
+      }
+      .readout-val {
+        font-family: var(--display);
+        font-size: clamp(1.1rem, 3vw, 2rem);
+        line-height: 1;
+        color: #ccd4e8;
+        letter-spacing: 0.05em;
+      }
+      .readout-val.red {
+        color: var(--red);
+        text-shadow: 0 0 14px var(--red);
+      }
+      .readout-val.amber {
+        color: var(--amber);
+        text-shadow: 0 0 14px var(--amber);
+      }
+      .readout-val.green {
+        color: var(--green);
+        text-shadow: 0 0 14px var(--green);
+      }
+      #warn {
+        font-size: clamp(0.52rem, 0.82vw, 0.7rem);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--red);
+        opacity: 0.6;
+        text-align: center;
+      }
+      #log {
+        border-top: 1px solid var(--border);
+        padding-top: clamp(6px, 1vw, 10px);
+        font-size: clamp(0.48rem, 0.75vw, 0.65rem);
+        letter-spacing: 0.1em;
+        line-height: 1.8;
+        opacity: 0.3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #flash {
+        position: fixed;
+        inset: 0;
+        background: #fff;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 500;
+      }
+
+      /* ── DETONATION OVERLAY ── */
+      #det {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.94);
+        z-index: 400;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        gap: clamp(14px, 3vh, 28px);
+        padding: clamp(16px, 4vw, 40px);
+        overflow-y: auto;
+      }
+      #det.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+      #det-title {
+        font-family: var(--display);
+        font-size: clamp(3.5rem, 14vw, 10rem);
+        line-height: 0.9;
+        color: var(--red);
+        text-shadow:
+          0 0 40px var(--red),
+          0 0 90px rgba(255, 43, 43, 0.35);
+        letter-spacing: 0.08em;
+        text-align: center;
+        transform: scale(0);
+        transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.4) 0.1s;
+      }
+      #det.show #det-title {
+        transform: scale(1);
+      }
+
+      /* ── CIRCLE PORTRAIT ── */
+      #img-frame {
+        width: clamp(150px, 34vmin, 240px);
+        height: clamp(150px, 34vmin, 240px);
+        border-radius: 50%;
+        border: 3px solid var(--red);
+        box-shadow:
+          0 0 28px var(--red),
+          0 0 70px rgba(255, 43, 43, 0.3),
+          inset 0 0 20px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.4s 0.4s;
+        flex-shrink: 0;
+      }
+      #det.show #img-frame {
+        opacity: 1;
+      }
+      #surprise-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 8%;
+        display: block;
+      }
+
+      #img-fallback {
+        position: absolute;
+        inset: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #0c0e14;
+        font-size: clamp(2.5rem, 8vmin, 5rem);
+        gap: 8px;
+      }
+      #img-fallback p {
+        font-size: clamp(0.5rem, 0.72vw, 0.62rem);
+        letter-spacing: 0.3em;
+        color: var(--amber);
+        opacity: 0.6;
+      }
+      #det-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        width: 100%;
+        max-width: 340px;
+        opacity: 0;
+        transition: opacity 0.4s 0.55s;
+      }
+      #det.show #det-stats {
+        opacity: 1;
+      }
+      .ds {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        padding: 10px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .ds-l {
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        opacity: 0.38;
+        text-transform: uppercase;
+      }
+      .ds-v {
+        font-family: var(--display);
+        font-size: 1.4rem;
+        color: var(--amber);
+        text-shadow: 0 0 10px var(--amber);
+      }
+      #reset-btn {
+        font-family: var(--mono);
+        font-size: clamp(0.58rem, 0.88vw, 0.76rem);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        background: transparent;
+        border: 1px solid var(--red);
+        color: var(--red);
+        padding: clamp(10px, 1.8vw, 14px) clamp(22px, 4.5vw, 38px);
+        cursor: pointer;
+        opacity: 0;
+        transition:
+          opacity 0.4s 0.7s,
+          background 0.2s,
+          color 0.2s,
+          box-shadow 0.2s;
+      }
+      #det.show #reset-btn {
+        opacity: 1;
+      }
+      #reset-btn:hover,
+      #reset-btn:active {
+        background: var(--red);
+        color: #000;
+        box-shadow: 0 0 24px var(--red);
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="cvs"></canvas>
+    <div id="flash"></div>
+
+    <div id="ui">
+      <div id="topbar">
+        <div class="sys-tag">ARMED &amp; READY</div>
+        <div class="sys-id">
+          SYS-ID: <span id="sysid">------</span> &nbsp;// BUILD 4.2.1
+        </div>
+        <div class="sys-tag amber">CLASSIFIED</div>
+      </div>
+
+      <div id="stage">
+        <div id="ring-wrap">
+          <svg
+            id="ring-svg"
+            viewBox="0 0 200 200"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="ticks"></g>
+            <circle class="ring-track" cx="100" cy="100" r="90" />
+            <circle class="ring-arc" id="rarc" cx="100" cy="100" r="90" />
+          </svg>
+          <button id="bomb-btn" aria-label="Do not press">
+            <div id="bomb-glyph">💣</div>
+          </button>
+        </div>
+
+        <div id="readouts">
+          <div class="readout">
+            <div class="readout-label">ATTEMPTS</div>
+            <div class="readout-val red" id="rd-att">000</div>
+          </div>
+          <div class="readout">
+            <div class="readout-label">CHARGE</div>
+            <div class="readout-val amber" id="rd-chg">0%</div>
+          </div>
+          <div class="readout">
+            <div class="readout-label">UPTIME</div>
+            <div class="readout-val green" id="rd-up">00:00</div>
+          </div>
+        </div>
+
+        <div id="warn">⚠ &nbsp; HOLD TO ARM · RELEASE TO ABORT &nbsp; ⚠</div>
+      </div>
+
+      <div id="log">
+        SYS BOOT OK // ARMING SEQUENCE STANDBY // YIELD: CLASSIFIED // AWAITING
+        INPUT...
+      </div>
+    </div>
+
+    <div id="det">
+      <div id="det-title">KA-BOOM</div>
+      <div id="img-frame">
+        <img
+          id="surprise-img"
+          src="image.png"
+          alt="Surprise"
+          onerror="
+            this.style.display = 'none';
+            document.getElementById('img-fallback').style.display = 'flex';
+          "
+        />
+        <div id="img-fallback">
+          😵
+          <p>DROP image.png NEXT TO THIS FILE</p>
+        </div>
+      </div>
+      <div id="det-stats">
+        <div class="ds">
+          <div class="ds-l">HOLD DURATION</div>
+          <div class="ds-v" id="ds-hold">-</div>
+        </div>
+        <div class="ds">
+          <div class="ds-l">ATTEMPTS</div>
+          <div class="ds-v" id="ds-att">-</div>
+        </div>
+        <div class="ds">
+          <div class="ds-l">YIELD</div>
+          <div class="ds-v" id="ds-yield">-</div>
+        </div>
+        <div class="ds">
+          <div class="ds-l">SURVIVAL</div>
+          <div class="ds-v" id="ds-surv">0%</div>
+        </div>
+      </div>
+      <button id="reset-btn">// RESET DEVICE //</button>
+    </div>
+
+    <script>
+      "use strict";
+      const $ = (id) => document.getElementById(id);
+      const PI2 = Math.PI * 2;
+      const rand = (a, b) => a + Math.random() * (b - a);
+
+      /* ── CANVAS, DPR-AWARE ── */
+      const cvs = $("cvs"),
+        ctx = cvs.getContext("2d");
+      let W, H, DPR;
+      function resize() {
+        DPR = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth;
+        H = window.innerHeight;
+        cvs.width = W * DPR;
+        cvs.height = H * DPR;
+        cvs.style.width = W + "px";
+        cvs.style.height = H + "px";
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      /* ── AUDIO ENGINE ── */
+      let actx = null;
+      function getAudio() {
+        if (!actx)
+          actx = new (window.AudioContext || window.webkitAudioContext)();
+        if (actx.state === "suspended") actx.resume();
+        return actx;
+      }
+      function playTick(freq, vol = 0.12) {
+        try {
+          const a = getAudio(),
+            o = a.createOscillator(),
+            g = a.createGain();
+          o.type = "square";
+          o.frequency.value = freq;
+          g.gain.setValueAtTime(vol, a.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + 0.045);
+          o.connect(g);
+          g.connect(a.destination);
+          o.start();
+          o.stop(a.currentTime + 0.05);
+        } catch (e) {}
+      }
+      function playExplosion() {
+        try {
+          const a = getAudio(),
+            sr = a.sampleRate,
+            dur = 3.5;
+          const master = a.createDynamicsCompressor();
+          master.threshold.value = -6;
+          master.ratio.value = 12;
+          master.attack.value = 0;
+          master.release.value = 0.3;
+          master.connect(a.destination);
+
+          // sub punch
+          const sub = a.createOscillator(),
+            subG = a.createGain();
+          sub.type = "sine";
+          sub.frequency.setValueAtTime(95, a.currentTime);
+          sub.frequency.exponentialRampToValueAtTime(22, a.currentTime + 0.5);
+          subG.gain.setValueAtTime(3.2, a.currentTime);
+          subG.gain.exponentialRampToValueAtTime(0.001, a.currentTime + 0.6);
+          sub.connect(subG);
+          subG.connect(master);
+          sub.start();
+          sub.stop(a.currentTime + 0.65);
+
+          // noise body
+          const nb = a.createBuffer(2, sr * dur, sr);
+          for (let c = 0; c < 2; c++) {
+            const d = nb.getChannelData(c);
+            for (let i = 0; i < d.length; i++) {
+              const t = i / sr;
+              d[i] =
+                (Math.random() * 2 - 1) *
+                (Math.exp(-t * 2.4) + Math.exp(-t * 0.38) * 0.5);
+            }
+          }
+          const noise = a.createBufferSource();
+          noise.buffer = nb;
+          const lp = a.createBiquadFilter();
+          lp.type = "lowpass";
+          lp.frequency.value = 300;
+          lp.Q.value = 1.3;
+          const nG = a.createGain();
+          nG.gain.setValueAtTime(1.7, a.currentTime);
+          nG.gain.exponentialRampToValueAtTime(0.001, a.currentTime + dur);
+          noise.connect(lp);
+          lp.connect(nG);
+          nG.connect(master);
+          noise.start();
+
+          // crack
+          const cb = a.createBuffer(1, sr * 0.09, sr);
+          const cd = cb.getChannelData(0);
+          for (let i = 0; i < cd.length; i++)
+            cd[i] = (Math.random() * 2 - 1) * Math.exp(-i / (cd.length * 0.04));
+          const crack = a.createBufferSource();
+          crack.buffer = cb;
+          const hp = a.createBiquadFilter();
+          hp.type = "highpass";
+          hp.frequency.value = 4200;
+          const cG = a.createGain();
+          cG.gain.value = 0.85;
+          crack.connect(hp);
+          hp.connect(cG);
+          cG.connect(master);
+          crack.start();
+        } catch (e) {}
+      }
+
+      /* ── PARTICLES ── */
+      const parts = [];
+      class P {
+        constructor(x, y, type, o = {}) {
+          this.x = x;
+          this.y = y;
+          this.type = type;
+          Object.assign(this, o);
+          this.life = o.life ?? 1;
+          this.decay = o.decay ?? 0.012;
+        }
+      }
+      function emit(cx, cy) {
+        for (let i = 0; i < 4; i++)
+          parts.push(
+            new P(cx, cy, "shock", {
+              r: 0,
+              maxR: rand(160, 440),
+              life: 1,
+              decay: 0.02 + i * 0.004,
+              lw: 3 - i * 0.4,
+            }),
+          );
+        for (let i = 0; i < 180; i++) {
+          const a = rand(0, PI2),
+            s = rand(1, 24);
+          parts.push(
+            new P(cx, cy, "fire", {
+              vx: Math.cos(a) * s,
+              vy: Math.sin(a) * s - rand(0, 5),
+              sz: rand(8, 44),
+              hue: rand(0, 45),
+              decay: 0.009 + Math.random() * 0.02,
+              gv: 0.12,
+            }),
+          );
+        }
+        for (let i = 0; i < 300; i++) {
+          const a = rand(0, PI2),
+            s = rand(2, 28);
+          parts.push(
+            new P(cx, cy, "ember", {
+              vx: Math.cos(a) * s,
+              vy: Math.sin(a) * s - rand(0, 9),
+              sz: rand(1.5, 5.5),
+              hue: rand(10, 55),
+              decay: 0.006 + Math.random() * 0.016,
+              gv: 0.22 + Math.random() * 0.12,
+            }),
+          );
+        }
+        for (let i = 0; i < 75; i++) {
+          const a = rand(0, PI2),
+            s = rand(3, 26);
+          parts.push(
+            new P(cx, cy, "debris", {
+              vx: Math.cos(a) * s,
+              vy: Math.sin(a) * s - rand(2, 11),
+              sz: rand(3, 10),
+              rot: rand(0, PI2),
+              spin: rand(-0.25, 0.25),
+              col: ["#888", "#aaa", "#555", "#c86020", "#ff6030"][i % 5],
+              decay: 0.005 + Math.random() * 0.012,
+              gv: 0.28 + Math.random() * 0.15,
+            }),
+          );
+        }
+        for (let i = 0; i < 100; i++) {
+          const a = rand(0, PI2),
+            s = rand(5, 32);
+          parts.push(
+            new P(cx, cy, "star", {
+              vx: Math.cos(a) * s,
+              vy: Math.sin(a) * s,
+              trail: [],
+              sz: rand(2, 4),
+              hue: rand(0, 60),
+              decay: 0.009 + Math.random() * 0.014,
+              gv: 0.08,
+            }),
+          );
+        }
+        setTimeout(() => {
+          for (let i = 0; i < 90; i++) {
+            const a = -Math.PI / 2 + rand(-0.9, 0.9),
+              s = rand(0.5, 3.5);
+            parts.push(
+              new P(cx, cy, "smoke", {
+                vx: Math.cos(a) * s,
+                vy: Math.sin(a) * s,
+                sz: rand(14, 44),
+                gr: rand(25, 55),
+                rot: rand(0, PI2),
+                spin: rand(-0.02, 0.02),
+                decay: 0.0022 + Math.random() * 0.005,
+                gv: -0.03,
+              }),
+            );
+          }
+        }, 180);
+      }
+      function drawParts() {
+        ctx.clearRect(0, 0, W, H);
+        for (let i = parts.length - 1; i >= 0; i--) {
+          const p = parts[i];
+          p.life -= p.decay;
+          if (p.life <= 0) {
+            parts.splice(i, 1);
+            continue;
+          }
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.life);
+          if (p.type === "shock") {
+            p.r += (p.maxR - p.r) * 0.1;
+            ctx.globalAlpha = p.life * 0.65;
+            ctx.strokeStyle = `rgba(255,170,50,${p.life})`;
+            ctx.lineWidth = p.lw * p.life;
+            ctx.shadowColor = "#ffaa00";
+            ctx.shadowBlur = 18;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, PI2);
+            ctx.stroke();
+          } else if (p.type === "fire") {
+            p.vx *= 0.97;
+            p.vy += p.gv;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.sz *= 0.97;
+            const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.sz);
+            g.addColorStop(0, `hsl(${50 + p.hue},100%,98%)`);
+            g.addColorStop(0.25, `hsl(${35 + p.hue},100%,72%)`);
+            g.addColorStop(0.65, `hsl(${15 + p.hue},100%,45%)`);
+            g.addColorStop(1, `hsla(${p.hue},80%,25%,0)`);
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.sz, 0, PI2);
+            ctx.fill();
+          } else if (p.type === "ember") {
+            p.vx *= 0.984;
+            p.vy += p.gv;
+            p.x += p.vx;
+            p.y += p.vy;
+            const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.sz);
+            g.addColorStop(0, `hsl(${p.hue + 50},100%,98%)`);
+            g.addColorStop(0.5, `hsl(${p.hue + 20},100%,70%)`);
+            g.addColorStop(1, `hsla(${p.hue},90%,40%,0)`);
+            ctx.fillStyle = g;
+            ctx.shadowColor = `hsl(${p.hue + 20},100%,60%)`;
+            ctx.shadowBlur = 7;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.sz, 0, PI2);
+            ctx.fill();
+          } else if (p.type === "debris") {
+            p.vx *= 0.98;
+            p.vy += p.gv;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rot += p.spin;
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot);
+            ctx.fillStyle = p.col;
+            ctx.shadowColor = "#ff6600";
+            ctx.shadowBlur = 10;
+            ctx.fillRect(-p.sz * 0.5, -p.sz * 0.25, p.sz, p.sz * 0.5);
+          } else if (p.type === "star") {
+            p.vx *= 0.975;
+            p.vy += p.gv;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.trail.push({ x: p.x, y: p.y });
+            if (p.trail.length > 10) p.trail.shift();
+            for (let t = 0; t < p.trail.length; t++) {
+              const tp = p.trail[t];
+              ctx.globalAlpha = (t / p.trail.length) * p.life * 0.45;
+              ctx.fillStyle = `hsl(${p.hue + 40},100%,80%)`;
+              ctx.beginPath();
+              ctx.arc(tp.x, tp.y, p.sz * (t / p.trail.length), 0, PI2);
+              ctx.fill();
+            }
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = `hsl(${p.hue + 50},100%,95%)`;
+            ctx.shadowColor = `hsl(${p.hue + 30},100%,70%)`;
+            ctx.shadowBlur = 8;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.sz, 0, PI2);
+            ctx.fill();
+          } else if (p.type === "smoke") {
+            p.vx *= 0.99;
+            p.vy += p.gv;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.sz += 0.5;
+            p.rot += p.spin;
+            ctx.globalAlpha = p.life * 0.26;
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot);
+            const g = ctx.createRadialGradient(0, 0, 0, 0, 0, p.sz);
+            g.addColorStop(0, `rgba(${p.gr},${p.gr},${p.gr},.55)`);
+            g.addColorStop(1, `rgba(${p.gr},${p.gr},${p.gr},0)`);
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.arc(0, 0, p.sz, 0, PI2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+        requestAnimationFrame(drawParts);
+      }
+      drawParts();
+
+      /* ── RING TICKS ── */
+      (function () {
+        const g = $("ticks"),
+          N = 60;
+        for (let i = 0; i < N; i++) {
+          const a = (i / N) * PI2 - Math.PI / 2,
+            r0 = i % 5 === 0 ? 82 : 86,
+            r1 = 90;
+          const l = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "line",
+          );
+          l.setAttribute("x1", 100 + Math.cos(a) * r0);
+          l.setAttribute("y1", 100 + Math.sin(a) * r0);
+          l.setAttribute("x2", 100 + Math.cos(a) * r1);
+          l.setAttribute("y2", 100 + Math.sin(a) * r1);
+          l.setAttribute("class", "ring-tick");
+          l.dataset.i = i;
+          g.appendChild(l);
+        }
+      })();
+
+      function setRing(pct) {
+        const N = 60,
+          count = Math.floor(pct * N);
+        $("ticks")
+          .querySelectorAll(".ring-tick")
+          .forEach((l, i) => l.classList.toggle("hot", i < count));
+        const c = 2 * Math.PI * 90;
+        $("rarc").style.strokeDasharray = `${pct * c} ${c}`;
+      }
+
+      /* ── STATE ── */
+      const HOLD_MS = 2200;
+      let holding = false,
+        holdStart = 0,
+        holdAmt = 0,
+        attempts = 0,
+        detonated = false;
+      let tickAccum = 0,
+        sessionStart = Date.now(),
+        lastSparkT = 0;
+
+      function startHold() {
+        if (detonated) return;
+        try {
+          getAudio();
+        } catch (e) {}
+        holding = true;
+        holdStart = performance.now();
+        attempts++;
+        $("rd-att").textContent = String(attempts).padStart(3, "0");
+        setLog("ARMING SEQUENCE INITIATED // HOLD STEADY...");
+      }
+      function endHold(boom) {
+        if (!holding) return;
+        holding = false;
+        if (boom) {
+          detonate();
+        } else {
+          setLog(
+            `SEQUENCE ABORTED // CHARGE: ${Math.round(holdAmt * 100)}% // DISARMED`,
+          );
+          holdAmt = 0;
+          setRing(0);
+          $("rd-chg").textContent = "0%";
+        }
+      }
+
+      /* pointer + touch — works on all devices */
+      const btn = $("bomb-btn");
+      btn.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        startHold();
+      });
+      btn.addEventListener("pointerup", (e) => {
+        e.preventDefault();
+        endHold(false);
+      });
+      btn.addEventListener("pointerleave", (e) => {
+        e.preventDefault();
+        endHold(false);
+      });
+
+      /* ── MAIN LOOP ── */
+      function loop(now) {
+        requestAnimationFrame(loop);
+        if (detonated) return;
+
+        // uptime
+        const el = (Date.now() - sessionStart) / 1000;
+        $("rd-up").textContent =
+          `${String(Math.floor(el / 60)).padStart(2, "0")}:${String(Math.floor(el % 60)).padStart(2, "0")}`;
+
+        const dt = 16;
+        if (!holding) {
+          holdAmt = Math.max(0, holdAmt - 0.02);
+          $("bomb-glyph").style.transform = "";
+          $("bomb-glyph").style.filter =
+            "drop-shadow(0 4px 20px rgba(0,0,0,.8))";
+        } else {
+          holdAmt = Math.min((now - holdStart) / HOLD_MS, 1);
+          const sc = 1 + holdAmt * 0.09;
+          $("bomb-glyph").style.transform = `scale(${sc})`;
+          $("bomb-glyph").style.filter =
+            `drop-shadow(0 0 ${holdAmt * 32}px rgba(255,43,43,${holdAmt * 0.85})) drop-shadow(0 4px 20px rgba(0,0,0,.8))`;
+
+          // rising beep
+          tickAccum += dt;
+          const interval = Math.max(38, 420 - holdAmt * 380);
+          if (tickAccum >= interval) {
+            tickAccum = 0;
+            playTick(180 + holdAmt * 700, 0.1 + holdAmt * 0.12);
+          }
+
+          // arc sparks
+          if (now - lastSparkT > 70) {
+            lastSparkT = now;
+            const br = $("ring-wrap").getBoundingClientRect();
+            const rx = br.left + br.width / 2,
+              ry = br.top + br.height / 2,
+              r = (br.width / 2) * 0.91;
+            const a = holdAmt * PI2 - Math.PI / 2;
+            const sx = rx + Math.cos(a) * r,
+              sy = ry + Math.sin(a) * r;
+            for (let i = 0; i < 5; i++) {
+              const sa = rand(0, PI2),
+                ss = rand(1.5, 6);
+              parts.push(
+                new P(sx, sy, "ember", {
+                  vx: Math.cos(sa) * ss,
+                  vy: Math.sin(sa) * ss,
+                  sz: rand(1.5, 3.5),
+                  hue: rand(10, 50),
+                  decay: 0.05 + Math.random() * 0.04,
+                  gv: 0.18,
+                  life: 1,
+                }),
+              );
+            }
+          }
+
+          if (holdAmt >= 1) {
+            endHold(true);
+            return;
+          }
+        }
+
+        setRing(holdAmt);
+        const pct = Math.round(holdAmt * 100);
+        $("rd-chg").textContent = pct + "%";
+        $("rd-chg").className =
+          "readout-val " + (pct > 66 ? "red" : pct > 33 ? "amber" : "amber");
+      }
+      requestAnimationFrame(loop);
+
+      /* ── DETONATE ── */
+      function detonate() {
+        if (detonated) return;
+        detonated = true;
+        const heldMs = performance.now() - holdStart;
+        playExplosion();
+
+        const fl = $("flash");
+        fl.style.transition = "none";
+        fl.style.opacity = "1";
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            fl.style.transition = "opacity .5s";
+            fl.style.opacity = "0";
+          }),
+        );
+
+        // Web Animations API shake — works mobile too
+        $("ui").animate(
+          [
+            { transform: "translate(0,0) rotate(0deg)" },
+            { transform: "translate(-14px,-10px) rotate(-1.2deg)" },
+            { transform: "translate(13px,13px) rotate(1.5deg)" },
+            { transform: "translate(-16px,8px) rotate(-1deg)" },
+            { transform: "translate(14px,-12px) rotate(1.2deg)" },
+            { transform: "translate(-8px,10px) rotate(-.6deg)" },
+            { transform: "translate(8px,-6px) rotate(.5deg)" },
+            { transform: "translate(0,0) rotate(0deg)" },
+          ],
+          { duration: 700, easing: "ease-out" },
+        );
+
+        const br = $("ring-wrap").getBoundingClientRect();
+        emit(br.left + br.width / 2, br.top + br.height / 2);
+
+        setTimeout(() => ($("ui").style.opacity = "0"), 200);
+
+        setTimeout(() => {
+          $("ds-hold").textContent = (heldMs / 1000).toFixed(2) + "s";
+          $("ds-att").textContent = attempts;
+          $("ds-yield").textContent = (holdAmt * 4.2).toFixed(2) + " kt";
+          $("ds-surv").textContent = "0%";
+          $("det").classList.add("show");
+        }, 480);
+      }
+
+      /* ── RESET ── */
+      $("reset-btn").addEventListener("click", () => {
+        $("det").classList.remove("show");
+        detonated = false;
+        holdAmt = 0;
+        holding = false;
+        $("ui").style.opacity = "1";
+        $("rd-chg").textContent = "0%";
+        $("bomb-glyph").style.transform = "";
+        $("bomb-glyph").style.filter = "drop-shadow(0 4px 20px rgba(0,0,0,.8))";
+        setRing(0);
+        parts.length = 0;
+        setLog("DEVICE RESET // ARMING SEQUENCE STANDBY // AWAITING INPUT...");
+      });
+
+      /* ── LOG ── */
+      $("sysid").textContent = Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase();
+      const logs = [
+        "WARHEAD INTEGRITY: NOMINAL",
+        "YIELD CLASS: CLASSIFIED",
+        "TRIGGER SENSITIVITY: MAX",
+        "DETONATION PROTOCOL: ACTIVE",
+        "SAFETY OVERRIDE: CONFIRMED",
+        "ARMING CIRCUIT: CLOSED",
+        "TARGET ACQUISITION: COMPLETE",
+        "THERMAL SIGNATURE: NOMINAL",
+      ];
+      let li = 0;
+      function setLog(msg) {
+        $("log").textContent = "// " + msg;
+      }
+      setInterval(() => {
+        if (!detonated && !holding && holdAmt === 0)
+          setLog(logs[li++ % logs.length]);
+      }, 3200);
+    </script>
+  </body>
+</html>
