@@ -1375,90 +1375,101 @@
         cx.globalAlpha = 1;
 
         if (s === 0) {
-          // legs (batched: both legs same color same path via rotRR)
-          cx.fillStyle = "#f0d0e8";
-          rotRR(x - p(5), ty - p(4), p(10), p(16), p(5), sw * 0.006);
-          rotRR(x + p(5), ty - p(4), p(10), p(16), p(5), -sw * 0.006);
-          // body (same color as legs — draw together)
+          var RS = "#f4b4cf",
+            RD = "#e089ac";
+          // bare legs (skin) — drawn first, feet at ground
+          cx.fillStyle = SK;
+          rotRR(x - p(5), ty - p(6), p(8), p(15), p(4), sw * 0.006);
+          rotRR(x + p(5), ty - p(6), p(8), p(15), p(4), -sw * 0.006);
+          // little shoes on top of the feet
+          cx.fillStyle = RD;
           cx.beginPath();
-          cx.roundRect(x - p(13), ty - p(32), p(26), p(26), p(9));
+          cx.ellipse(x - p(5), ty + p(2), p(6.5), p(4.5), 0, 0, 6.28);
+          cx.ellipse(x + p(5), ty + p(2), p(6.5), p(4.5), 0, 0, 6.28);
           cx.fill();
-          // arms
-          rotRR(x - p(16), ty - p(22), p(10), p(17), p(5), -0.35 + sw * 0.005);
-          rotRR(x + p(16), ty - p(22), p(10), p(17), p(5), 0.35 - sw * 0.005);
-          // pink accents batched
-          cx.fillStyle = "#d080a8";
+          // romper body (drawn over the tops of the legs so no gap shows)
+          cx.fillStyle = RS;
           cx.beginPath();
-          cx.ellipse(x - p(5), ty + p(6), p(7), p(5), 0, 0, 6.28);
-          cx.ellipse(x + p(5), ty + p(6), p(7), p(5), 0, 0, 6.28);
-          cx.ellipse(x, ty - p(8), p(3), p(2), 0, 0, 6.28);
+          cx.roundRect(x - p(13), ty - p(32), p(26), p(28), p(10));
           cx.fill();
-          // skin batched: fists+neck+head+ears
+          // bare arms (skin), drawn before the romper straps so straps sit on top
+          cx.fillStyle = SK;
+          rotRR(x - p(15), ty - p(21), p(8), p(16), p(4), -0.3 + sw * 0.005);
+          rotRR(x + p(15), ty - p(21), p(8), p(16), p(4), 0.3 - sw * 0.005);
+          // little fists at the end of the arms
+          cx.beginPath();
+          cx.ellipse(x - p(16), ty - p(9), p(5), p(4.8), 0, 0, 6.28);
+          cx.ellipse(x + p(16), ty - p(9), p(5), p(4.8), 0, 0, 6.28);
+          cx.fill();
+          // romper straps + a little bow button, all one darker-pink pass
+          cx.fillStyle = RD;
+          cx.beginPath();
+          cx.roundRect(x - p(11), ty - p(32), p(5), p(9), p(2.5));
+          cx.roundRect(x + p(6), ty - p(32), p(5), p(9), p(2.5));
+          cx.ellipse(x - p(2.5), ty - p(14), p(2.6), p(2), 0, 0, 6.28);
+          cx.ellipse(x + p(2.5), ty - p(14), p(2.6), p(2), 0, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#c26a90";
+          cx.beginPath();
+          cx.arc(x, ty - p(14), p(1.6), 0, 6.28);
+          cx.fill();
+          // neck + head + ears, all skin, one pass
           cx.fillStyle = SK;
           cx.beginPath();
-          cx.ellipse(x - p(17), ty - p(7), p(6), p(5.5), 0, 0, 6.28);
-          cx.ellipse(x + p(17), ty - p(7), p(6), p(5.5), 0, 0, 6.28);
-          cx.ellipse(x, ty - p(33), p(6), p(6), 0, 0, 6.28);
-          cx.arc(x, ty - p(47), p(15), 0, 6.28);
-          cx.ellipse(x - p(14), ty - p(47), p(4.5), p(5.5), 0, 0, 6.28);
-          cx.ellipse(x + p(14), ty - p(47), p(4.5), p(5.5), 0, 0, 6.28);
+          cx.ellipse(x, ty - p(34), p(5.5), p(5), 0, 0, 6.28);
+          cx.arc(x, ty - p(48), p(14), 0, 6.28);
+          cx.ellipse(x - p(13.5), ty - p(48), p(4), p(5), 0, 0, 6.28);
+          cx.ellipse(x + p(13.5), ty - p(48), p(4), p(5), 0, 0, 6.28);
           cx.fill();
-          // ear inner
-          cx.fillStyle = "#e0c0a0";
+          // inner ears
+          cx.fillStyle = "#e0b8a0";
           cx.beginPath();
-          cx.ellipse(x - p(14), ty - p(47), p(2.5), p(3.5), 0, 0, 6.28);
-          cx.ellipse(x + p(14), ty - p(47), p(2.5), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x - p(13.5), ty - p(48), p(2.2), p(3), 0, 0, 6.28);
+          cx.ellipse(x + p(13.5), ty - p(48), p(2.2), p(3), 0, 0, 6.28);
           cx.fill();
-          // cheeks
-          cx.fillStyle = "rgba(230,128,142,.45)";
+          // cheeks — sit low on the face, below the eyes
+          cx.fillStyle = "rgba(230,128,142,.42)";
           cx.beginPath();
-          cx.ellipse(x - p(9), ty - p(44), p(5.5), p(4), 0, 0, 6.28);
-          cx.ellipse(x + p(9), ty - p(44), p(5.5), p(4), 0, 0, 6.28);
+          cx.ellipse(x - p(9), ty - p(44), p(5), p(3.6), 0, 0, 6.28);
+          cx.ellipse(x + p(9), ty - p(44), p(5), p(3.6), 0, 0, 6.28);
           cx.fill();
-          // eyes
+          // eyes — sit above the cheeks
           cx.fillStyle = "#2a1e38";
           cx.beginPath();
-          cx.ellipse(x - p(5.5), ty - p(49), p(3), p(3.5), 0, 0, 6.28);
-          cx.ellipse(x + p(5.5), ty - p(49), p(3), p(3.5), 0, 0, 6.28);
+          cx.ellipse(x - p(5.5), ty - p(50), p(2.8), p(3.3), 0, 0, 6.28);
+          cx.ellipse(x + p(5.5), ty - p(50), p(2.8), p(3.3), 0, 0, 6.28);
           cx.fill();
           cx.fillStyle = "#fff";
           cx.beginPath();
-          cx.ellipse(x - p(4), ty - p(50), p(1.3), p(1.5), 0, 0, 6.28);
-          cx.ellipse(x + p(7), ty - p(50), p(1.3), p(1.5), 0, 0, 6.28);
+          cx.ellipse(x - p(4.2), ty - p(51), p(1.2), p(1.4), 0, 0, 6.28);
+          cx.ellipse(x + p(6.8), ty - p(51), p(1.2), p(1.4), 0, 0, 6.28);
           cx.fill();
-          // nose+smile
-          cx.fillStyle = "rgba(180,120,108,.55)";
+          // nose + smile
+          cx.fillStyle = "rgba(180,120,108,.5)";
           cx.beginPath();
-          cx.arc(x, ty - p(46), p(1.3), 0, 6.28);
+          cx.arc(x, ty - p(47), p(1.2), 0, 6.28);
           cx.fill();
           cx.strokeStyle = "#b07080";
           cx.lineWidth = p(1.6);
           cx.lineCap = "round";
           cx.beginPath();
-          cx.arc(x, ty - p(42), p(4), 0.25, Math.PI - 0.25);
+          cx.arc(x, ty - p(43), p(3.6), 0.3, Math.PI - 0.3);
           cx.stroke();
-          // hair batched
+          // a single soft curl on top, plus a little hair bow
           cx.fillStyle = HR;
           cx.beginPath();
-          cx.ellipse(x, ty - p(59), p(10), p(7), 0, Math.PI, Math.PI * 2);
-          cx.ellipse(
-            x - p(8),
-            ty - p(57),
-            p(6),
-            p(5),
-            -0.25,
-            Math.PI,
-            Math.PI * 2,
-          );
-          cx.ellipse(
-            x + p(8),
-            ty - p(57),
-            p(6),
-            p(5),
-            0.25,
-            Math.PI,
-            Math.PI * 2,
-          );
+          cx.moveTo(x, ty - p(60));
+          cx.quadraticCurveTo(x + p(7), ty - p(66), x + p(2), ty - p(58));
+          cx.quadraticCurveTo(x - p(4), ty - p(63), x, ty - p(60));
+          cx.fill();
+          cx.fillStyle = RD;
+          cx.beginPath();
+          cx.ellipse(x - p(4), ty - p(60), p(3.2), p(2.2), -0.5, 0, 6.28);
+          cx.ellipse(x + p(4), ty - p(60), p(3.2), p(2.2), 0.5, 0, 6.28);
+          cx.fill();
+          cx.fillStyle = "#c26a90";
+          cx.beginPath();
+          cx.arc(x, ty - p(60), p(1.5), 0, 6.28);
           cx.fill();
         } else if (s === 1) {
           // legs+socks
