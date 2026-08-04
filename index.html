@@ -570,8 +570,8 @@
     </div>
 
     <!-- S2: LETTER -->
-    <div class="page">
-      <div class="lw">
+    <!-- <div class="page">
+      <!-- <div class="lw">
         <div class="dv"><span>✦</span></div>
         <div class="lb">
           <!-- <p class="lp">
@@ -579,9 +579,9 @@
             you in physics class. Something about that moment just stayed with
             me quietly, in the background like a song you can't stop humming.
           </p> -->
-          <p class="lp hl">
+          <!-- <p class="lp hl">
             "You are still my favourite stranger in the world."
-          </p>
+          </p> -->
           <!-- <p class="lp">
             I wish you all the very best for this year. Work hard, chase
             whatever makes your eyes light up, and live a happy life.
@@ -594,9 +594,55 @@
             always be in my heart. 🤍
           </p>
           <p class="lp cl">Until next year, goodbye. 🌙</p> -->
-        </div>
-      </div>
+        <!-- </div>
+      </div> -->
+    <!-- </div> --> 
+    <div class="page">
+  <div class="lw">
+    <div class="dv"><span>✦</span></div>
+
+    <div class="lb">
+      <p class="lp hl" id="countdown">
+        Loading...
+      </p>
     </div>
+  </div>
+</div>
+
+<script>
+  const targetDate = new Date("July 12, 2027 00:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+      document.getElementById("countdown").textContent =
+        "The day has arrived ✦";
+      return;
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) /
+      (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (difference % (1000 * 60 * 60)) /
+      (1000 * 60)
+    );
+    const seconds = Math.floor(
+      (difference % (1000 * 60)) /
+      1000
+    );
+
+    document.getElementById("countdown").textContent =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
 
     <!-- S3: OUTRO -->
     <div class="page">
