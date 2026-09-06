@@ -1,0 +1,2113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title></title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Crimson+Pro:ital,wght@0,200;0,300;1,200;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href='data:image/svg+xml,
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <text y=".9em" font-size="90">🌸</text>
+    </svg>'
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --gold: #c9a96e;
+        --rose: #c47a8a;
+        --mist: #8a7fa0;
+        --cream: #f0e8d8;
+        --paper: #0d0b12;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      html,
+      body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+      body {
+        background: var(--paper);
+        color: var(--cream);
+        font-family: "Crimson Pro", serif;
+      }
+      #stars {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .page {
+        position: relative;
+        z-index: 2;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 1.5rem;
+        text-align: center;
+      }
+
+      /* ── HERO ── */
+      .tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 300;
+        opacity: 0;
+        animation: rise 1s ease forwards 0.4s;
+        margin-bottom: 1.4rem;
+      }
+      /* Two lines: "Happy" then "Birthday," */
+      .hero-title {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--cream);
+        opacity: 0;
+        animation: rise 1.2s ease forwards 0.9s;
+        margin-bottom: 0.3em;
+      }
+      .hero-title .line1 {
+        display: block;
+        font-size: clamp(3rem, 12vw, 6.5rem);
+      }
+      .hero-title .line2 {
+        display: block;
+        font-size: clamp(3rem, 12vw, 6.5rem);
+      }
+      .hero-title .line3 {
+        display: block;
+        font-size: clamp(3rem, 12vw, 6.5rem);
+        font-style: italic;
+        color: var(--gold);
+      }
+      .sub {
+        font-weight: 200;
+        font-size: clamp(0.85rem, 2.2vw, 1.05rem);
+        color: var(--mist);
+        letter-spacing: 0.12em;
+        opacity: 0;
+        animation: rise 1s ease forwards 1.2s;
+        margin-bottom: 3rem;
+      }
+      .sc {
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--mist);
+        opacity: 0;
+        animation:
+          rise 1s ease forwards 2s,
+          sp 3s ease-in-out infinite 2.5s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .sc::after {
+        content: "";
+        width: 1px;
+        height: 34px;
+        background: linear-gradient(to bottom, var(--mist), transparent);
+      }
+
+      /* ── LETTER ── */
+      .lw {
+        max-width: 640px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 3rem 0 5rem;
+      }
+      .dv {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      .dv::before,
+      .dv::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0.4;
+      }
+      .dv span {
+        color: var(--gold);
+      }
+      .lf {
+        font-weight: 200;
+        font-size: 0.7rem;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--rose);
+        margin-bottom: 2.5rem;
+      }
+      .lb {
+        position: relative;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.01)
+        );
+        border: 1px solid rgba(201, 169, 110, 0.13);
+        border-radius: 2px;
+        padding: clamp(1.8rem, 5vw, 3rem) clamp(1.2rem, 5vw, 3.5rem);
+        backdrop-filter: blur(4px);
+      }
+      .lb::before {
+        content: "\201C";
+        position: absolute;
+        top: -0.55em;
+        left: 1.6rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 8rem;
+        color: var(--rose);
+        opacity: 0.12;
+        line-height: 1;
+        pointer-events: none;
+      }
+      .lp {
+        font-weight: 300;
+        font-size: clamp(1rem, 2.4vw, 1.15rem);
+        line-height: 1.92;
+        color: rgba(240, 232, 216, 0.88);
+        margin-bottom: 1.5em;
+      }
+      .lp:last-child {
+        margin-bottom: 0;
+      }
+      .lp.hl {
+        font-style: italic;
+        color: var(--cream);
+        font-size: clamp(1.05rem, 2.8vw, 1.28rem);
+      }
+      .lp.cl {
+        margin-top: 2rem;
+        padding-top: 1.8rem;
+        border-top: 1px solid rgba(201, 169, 110, 0.1);
+        font-style: italic;
+        color: var(--mist);
+        font-size: clamp(0.88rem, 2vw, 1rem);
+      }
+
+      /* ── OUTRO ── */
+      .outro {
+        padding: 2rem 0 6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .pb {
+        font-size: 2.6rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        line-height: 1;
+        filter: drop-shadow(0 0 14px rgba(196, 122, 138, 0.5));
+        animation: pbob 3s ease-in-out infinite;
+        transition:
+          transform 0.2s,
+          filter 0.2s;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .pb:hover,
+      .pb:active {
+        transform: scale(1.22) !important;
+        filter: drop-shadow(0 0 32px rgba(240, 176, 196, 0.9));
+      }
+      .ot {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 300;
+        font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+        font-style: italic;
+        color: var(--mist);
+      }
+      .oh {
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--rose);
+        opacity: 0.65;
+      }
+
+      .pt {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        animation: drift linear infinite;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes sp {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 0.85;
+        }
+      }
+      @keyframes pbob {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-3deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(3deg);
+        }
+      }
+      @keyframes drift {
+        0% {
+          transform: translateY(105vh) rotate(0);
+          opacity: 0;
+        }
+        8% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.35;
+        }
+        100% {
+          transform: translateY(-8vh) rotate(540deg);
+          opacity: 0;
+        }
+      }
+
+      /* ════════════════════════════════
+   GAME MODAL
+════════════════════════════════ */
+      #gm {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        align-items: center;
+        justify-content: center;
+        padding: 0.6rem;
+        background: rgba(4, 2, 10, 0.93);
+        backdrop-filter: blur(20px);
+      }
+      #gm.open {
+        display: flex;
+      }
+
+      .gbox {
+        width: 100%;
+        max-width: 760px;
+        background: #0b0916;
+        border: 1px solid rgba(201, 169, 110, 0.18);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 0 80px rgba(196, 122, 138, 0.1);
+        display: flex;
+        flex-direction: column;
+        /* fill screen height properly */
+        height: calc(100svh - 1.2rem);
+        max-height: 700px;
+      }
+
+      /* TOP BAR */
+      .gbar {
+        background: rgba(255, 255, 255, 0.025);
+        border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+        padding: 0.45rem 0.9rem;
+        display: grid;
+        grid-template-columns: 28px 1fr auto auto;
+        align-items: center;
+        gap: 0.55rem;
+        flex-shrink: 0;
+      }
+      .gcls {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--mist);
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+        transition: background 0.2s;
+        touch-action: manipulation;
+      }
+      .gcls:hover,
+      .gcls:active {
+        background: rgba(196, 122, 138, 0.3);
+        color: var(--cream);
+      }
+      .gbrand {
+        font-size: 0.5rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        opacity: 0.6;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .glives {
+        font-size: 0.82rem;
+        white-space: nowrap;
+        letter-spacing: 0.08rem;
+      }
+      .gsc {
+        font-size: 0.68rem;
+        color: var(--gold);
+        font-weight: 700;
+        white-space: nowrap;
+        padding-right: 0.1rem;
+      }
+
+      /* STAGE DOTS */
+      .gdots {
+        padding: 0.28rem 0.9rem;
+        background: rgba(255, 255, 255, 0.015);
+        border-bottom: 1px solid rgba(201, 169, 110, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-shrink: 0;
+      }
+      .sd {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        transition:
+          background 0.4s,
+          box-shadow 0.4s;
+        flex-shrink: 0;
+      }
+      .sd.done {
+        background: var(--gold);
+      }
+      .sd.cur {
+        background: var(--rose);
+        box-shadow: 0 0 6px var(--rose);
+      }
+      .ghint {
+        margin-left: auto;
+        font-size: 0.54rem;
+        color: var(--mist);
+        letter-spacing: 0.06em;
+      }
+
+      /* ARENA — takes all remaining flex space */
+      .garena {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        min-height: 0;
+      }
+      #gc {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* OVERLAYS */
+      .gov {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(4, 2, 10, 0.86);
+        backdrop-filter: blur(6px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 10;
+        text-align: center;
+        padding: 1.2rem;
+      }
+      .gov.show {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .gov h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.25rem, 4vw, 1.6rem);
+        color: var(--cream);
+        margin-bottom: 0.35rem;
+      }
+      .gov p {
+        font-weight: 300;
+        font-size: clamp(0.78rem, 2.5vw, 0.9rem);
+        color: var(--mist);
+        line-height: 1.7;
+        max-width: 300px;
+        margin-bottom: 0.85rem;
+      }
+      .gbtn {
+        background: linear-gradient(135deg, var(--rose), #9b7fe8);
+        color: #fff;
+        font-family: "Crimson Pro", serif;
+        font-size: clamp(0.78rem, 2.5vw, 0.88rem);
+        font-weight: 600;
+        padding: 0.44rem 1.5rem;
+        border-radius: 100px;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 0.05em;
+        transition: opacity 0.2s;
+        touch-action: manipulation;
+      }
+      .gbtn:hover,
+      .gbtn:active {
+        opacity: 0.8;
+      }
+
+      /* PROGRESS BAR */
+      .gprog {
+        padding: 0.42rem 0.9rem 0.52rem;
+        background: rgba(0, 0, 0, 0.18);
+        border-top: 1px solid rgba(201, 169, 110, 0.05);
+        flex-shrink: 0;
+      }
+      .gprow {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.54rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mist);
+        margin-bottom: 0.24rem;
+      }
+      .gpt {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .gpf {
+        height: 100%;
+        background: linear-gradient(90deg, var(--rose), var(--gold));
+        border-radius: 3px;
+        transition: width 0.25s ease;
+        width: 0%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="stars"></canvas>
+    <script>
+      ["✦", "·", "˚", "⋆", "🌸"].forEach(function (e) {
+        for (var j = 0; j < 3; j++) {
+          var p = document.createElement("div");
+          p.className = "pt";
+          p.textContent = e;
+          Object.assign(p.style, {
+            left: Math.random() * 100 + "vw",
+            fontSize: 0.4 + Math.random() * 0.7 + "rem",
+            color: ["#c9a96e", "#c47a8a", "#9b7fe8", "#f0e8d8"][
+              ~~(Math.random() * 4)
+            ],
+            animationDuration: 16 + Math.random() * 18 + "s",
+            animationDelay: Math.random() * 22 + "s",
+          });
+          document.body.appendChild(p);
+        }
+      });
+    </script>
+
+   
+    <div class="page">
+  <div class="lw">
+    <div class="dv"><span>✦</span></div>
+
+    <p class="lp hl" id="countdown">
+      Loading...
+    </p>
+  </div>
+</div>
+
+<script>
+  const targetDate = new Date("July 12, 2027 00:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+      document.getElementById("countdown").textContent =
+        "The day has arrived ✦";
+      return;
+    }
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (difference % (1000 * 60 * 60 * 24)) /
+      (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (difference % (1000 * 60 * 60)) /
+      (1000 * 60)
+    );
+    const seconds = Math.floor(
+      (difference % (1000 * 60)) /
+      1000
+    );
+
+    document.getElementById("countdown").textContent =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+    <!-- S3: OUTRO -->
+    <div class="page">
+      <div class="outro">
+        <button class="pb" id="petalBtn">🌸</button>
+        <!-- <p class="ot">Many happy returns</p> -->
+        <p class="oh">click the flower</p>
+      </div>
+    </div>
+
+    <!-- GAME MODAL -->
+    <div id="gm">
+      <div class="gbox">
+        <div class="gbar">
+          <button class="gcls" id="gcls">✕</button>
+          <span class="gbrand">✦ a little adventure</span>
+          <span class="glives" id="glives">❤️❤️❤️</span>
+          <span class="gsc">⭐&thinsp;<span id="gscv">0</span></span>
+        </div>
+        <div class="gdots">
+          <div class="sd cur" id="sd0"></div>
+          <div class="sd" id="sd1"></div>
+          <div class="sd" id="sd2"></div>
+          <div class="sd" id="sd3"></div>
+          <span class="ghint">tap · space to jump</span>
+        </div>
+        <div class="garena" id="garena">
+          <canvas id="gc"></canvas>
+          <div class="gov show" id="ov-start">
+            <h3>Jump! ✨</h3>
+            <p>Collect stars ⭐ to grow.<br />See what happens.</p>
+            <button class="gbtn" id="btn-start">Play →</button>
+          </div>
+          <div class="gov" id="ov-over">
+            <h3>Oops! 💫</h3>
+            <p>So close — try again!</p>
+            <button class="gbtn" id="btn-retry">↩ Retry</button>
+          </div>
+          <div class="gov" id="ov-win">
+            <div style="font-size: 2rem; margin-bottom: 0.4rem">🌸</div>
+            <h3>You made it!</h3>
+            <button class="gbtn" id="btn-win">Play again 🌸</button>
+          </div>
+        </div>
+        <div class="gprog">
+          <div class="gprow">
+            <span id="gpl">level 1 / 4</span><span id="gps">0 stars</span>
+          </div>
+          <div class="gpt"><div class="gpf" id="gpf"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ══ STARFIELD ══ */
+      (function () {
+        var c = document.getElementById("stars"),
+          x = c.getContext("2d"),
+          W,
+          H,
+          t = 0;
+        function sz() {
+          W = c.width = innerWidth;
+          H = c.height = innerHeight;
+        }
+        sz();
+        addEventListener("resize", sz);
+        var stars = Array.from({ length: 160 }, function () {
+          return {
+            rx: Math.random(),
+            ry: Math.random(),
+            r: Math.random() * 1.1 + 0.2,
+            p: Math.random() * 6.28,
+            sp: Math.random() * 0.005 + 0.002,
+          };
+        });
+        var blobs = [
+          { rx: 0.25, ry: 0.3, c: "155,127,232" },
+          { rx: 0.75, ry: 0.6, c: "196,122,138" },
+          { rx: 0.5, ry: 0.85, c: "201,169,110" },
+        ];
+        (function draw() {
+          x.clearRect(0, 0, W, H);
+          blobs.forEach(function (b) {
+            var bx = b.rx * W + Math.sin(t * 0.3) * W * 0.03,
+              by = b.ry * H + Math.cos(t * 0.25) * H * 0.025;
+            var g = x.createRadialGradient(
+              bx,
+              by,
+              0,
+              bx,
+              by,
+              0.44 * Math.max(W, H),
+            );
+            g.addColorStop(0, "rgba(" + b.c + ",.04)");
+            g.addColorStop(1, "rgba(" + b.c + ",0)");
+            x.fillStyle = g;
+            x.fillRect(0, 0, W, H);
+          });
+          stars.forEach(function (s) {
+            var a = 0.1 + 0.65 * Math.abs(Math.sin(s.p + t * s.sp));
+            x.beginPath();
+            x.arc(s.rx * W, s.ry * H, s.r, 0, 6.28);
+            x.fillStyle = "rgba(240,232,216," + a * 0.58 + ")";
+            x.fill();
+          });
+          t += 0.008;
+          requestAnimationFrame(draw);
+        })();
+      })();
+    </script>
+
+    <script>
+      /* ═══════════════════════════════════════════════════════════
+         THE GAME
+         Every distance below is a fraction of the arena's own width
+         or height, so the jump arc, the obstacle spacing and the
+         character all behave the same on a phone and on a laptop.
+      ═══════════════════════════════════════════════════════════ */
+      (function () {
+        "use strict";
+
+        var TAU = Math.PI * 2;
+        function clamp(v, lo, hi) {
+          return v < lo ? lo : v > hi ? hi : v;
+        }
+        function rand(lo, hi) {
+          return lo + Math.random() * (hi - lo);
+        }
+
+        /* Safari before 16 has no roundRect. */
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+          CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+            var rad = Math.min(r || 0, Math.abs(w) / 2, Math.abs(h) / 2);
+            this.moveTo(x + rad, y);
+            this.arcTo(x + w, y, x + w, y + h, rad);
+            this.arcTo(x + w, y + h, x, y + h, rad);
+            this.arcTo(x, y + h, x, y, rad);
+            this.arcTo(x, y, x + w, y, rad);
+            this.closePath();
+            return this;
+          };
+        }
+
+        /* ── The look of the girl herself: shared by all four stages ── */
+        var SKIN = "#f0d0b0";
+        var SKIN_SHADE = "#dbb190";
+        var HAIR = "#2a1c1a";
+        var HAIR_LIGHT = "#43302c";
+        var RIBBON = "#d98aa4";
+        var EYE = "#2a1e38";
+
+        /* Body proportions. Feet sit at y = 0 and the top of the head at
+           y = -1, so a stage only has to say how tall she is on screen. */
+        function build(headRatio, m) {
+          m.headR = headRatio / 2;
+          m.headCY = -(1 - m.headR);
+          m.chinY = m.headCY + m.headR * 0.92;
+          if (!m.eyeScale) m.eyeScale = 1;
+          return m;
+        }
+
+        var STAGES = [
+          {
+            need: 10,
+            speedFactor: 0.34,
+            skyA: "#110820",
+            skyB: "#1e0d35",
+            gA: "#2a1240",
+            gB: "#0e0820",
+            bg: ["🌙", "☁️", "✨"],
+            outfit: "infant",
+            heightRatio: 0.145,
+            metrics: build(0.38, {
+              shoulderY: -0.575,
+              hipY: -0.27,
+              shoulderX: 0.085,
+              hipX: 0.052,
+              legLen: 0.27,
+              armLen: 0.19,
+              legW: 0.082,
+              armW: 0.066,
+              bodyW: 0.3,
+              hitW: 0.46,
+              eyeScale: 1.16,
+            }),
+          },
+          {
+            need: 14,
+            speedFactor: 0.38,
+            skyA: "#071528",
+            skyB: "#0d2040",
+            gA: "#102a14",
+            gB: "#060e08",
+            bg: ["☀️", "🏫", "🌤️"],
+            outfit: "school",
+            heightRatio: 0.185,
+            metrics: build(0.28, {
+              shoulderY: -0.686,
+              hipY: -0.34,
+              shoulderX: 0.082,
+              hipX: 0.05,
+              legLen: 0.34,
+              armLen: 0.25,
+              legW: 0.074,
+              armW: 0.058,
+              bodyW: 0.225,
+              hitW: 0.4,
+            }),
+          },
+          {
+            need: 18,
+            speedFactor: 0.42,
+            skyA: "#0c1422",
+            skyB: "#162038",
+            gA: "#201008",
+            gB: "#0a0804",
+            bg: ["🌙", "🏛️", "⭐"],
+            outfit: "student",
+            heightRatio: 0.205,
+            metrics: build(0.25, {
+              shoulderY: -0.705,
+              hipY: -0.36,
+              shoulderX: 0.085,
+              hipX: 0.05,
+              legLen: 0.36,
+              armLen: 0.26,
+              legW: 0.074,
+              armW: 0.058,
+              bodyW: 0.23,
+              hitW: 0.4,
+              eyeScale: 0.97,
+            }),
+          },
+          {
+            need: 22,
+            speedFactor: 0.46,
+            skyA: "#071408",
+            skyB: "#122018",
+            gA: "#142010",
+            gB: "#060e08",
+            bg: ["✨", "💫", "🌟"],
+            outfit: "doctor",
+            heightRatio: 0.215,
+            metrics: build(0.24, {
+              shoulderY: -0.715,
+              hipY: -0.37,
+              shoulderX: 0.088,
+              hipX: 0.05,
+              legLen: 0.37,
+              armLen: 0.27,
+              legW: 0.074,
+              armW: 0.058,
+              bodyW: 0.24,
+              hitW: 0.42,
+              eyeScale: 0.95,
+            }),
+          },
+        ];
+
+        /* obstacle colours per level */
+        var OBS_COLS = [
+          ["#c05888", "#e880b0", "#f8b8d8"],
+          ["#305898", "#4878c8", "#88aee8"],
+          ["#785010", "#b87820", "#e0b060"],
+          ["#206840", "#30a860", "#70d898"],
+        ];
+
+        /* ── Tuning ── */
+        var APEX_RATIO = 0.26; // top of the jump, as a share of arena height
+        var APEX_TIME = 0.36; // seconds from take-off to the top
+        var SPEED_GAIN = 0.006; // extra speed per second of play
+        var SPEED_GAIN_MAX = 0.1;
+        var COYOTE = 0.09; // grace period just after leaving the ground
+        var BUFFER = 0.13; // a jump pressed just before landing still counts
+        var INVULN = 1.1; // blink time after a hit
+        var STEP_RATE = 10.5; // walk-cycle radians per second
+
+        /* ── Elements ── */
+        var canvas = document.getElementById("gc");
+        var ctx = canvas.getContext("2d");
+        var arena = document.getElementById("garena");
+        var modal = document.getElementById("gm");
+        var el = {
+          lives: document.getElementById("glives"),
+          score: document.getElementById("gscv"),
+          level: document.getElementById("gpl"),
+          count: document.getElementById("gps"),
+          fill: document.getElementById("gpf"),
+          dots: [0, 1, 2, 3].map(function (i) {
+            return document.getElementById("sd" + i);
+          }),
+        };
+
+        /* ── Geometry, rebuilt on every resize ── */
+        var view = {
+          w: 0,
+          h: 0,
+          dpr: 1,
+          groundY: 0,
+          playerX: 0,
+          gravity: 0,
+          jumpV: 0,
+          apex: 0,
+        };
+
+        /* ── State ── */
+        var st = {
+          phase: "idle", // idle | running | transition | over | won
+          level: 0,
+          stars: 0,
+          score: 0,
+          lives: 3,
+          elapsed: 0,
+          clock: 0,
+          distance: 0,
+          y: 0,
+          vy: 0,
+          grounded: true,
+          walk: 0,
+          coyote: 0,
+          buffer: 0,
+          invuln: 0,
+          shake: 0,
+          nextObstacle: 0,
+          nextStar: 0,
+          fade: 0,
+          fadeFrom: 0,
+          obstacles: [],
+          pickups: [],
+          sparks: [],
+        };
+
+        var raf = null;
+        var lastTs = 0;
+
+        function stage() {
+          return STAGES[st.level];
+        }
+        function charH() {
+          return view.h * stage().heightRatio;
+        }
+        function speed() {
+          return (
+            view.w *
+            (stage().speedFactor +
+              Math.min(st.elapsed * SPEED_GAIN, SPEED_GAIN_MAX))
+          );
+        }
+
+        /* ═══════════ Layout ═══════════
+           The canvas is sized in real device pixels, so nothing is blurry,
+           and anything already on screen is rescaled rather than teleported. */
+        function measure() {
+          var w = arena.clientWidth;
+          var h = arena.clientHeight;
+          if (w < 40 || h < 40) return false;
+
+          var dpr = clamp(window.devicePixelRatio || 1, 1, 2.5);
+          var bw = Math.round(w * dpr);
+          var bh = Math.round(h * dpr);
+          if (
+            canvas.width === bw &&
+            canvas.height === bh &&
+            view.w === w &&
+            view.h === h
+          ) {
+            return false;
+          }
+
+          var prevW = view.w;
+          var prevH = view.h;
+          canvas.width = bw;
+          canvas.height = bh;
+          view.dpr = dpr;
+          view.w = w;
+          view.h = h;
+          view.groundY = Math.round(h * 0.78);
+          view.playerX = clamp(w * 0.16, 44, 140);
+          view.apex = h * APEX_RATIO;
+          view.gravity = (2 * view.apex) / (APEX_TIME * APEX_TIME);
+          view.jumpV = -(2 * view.apex) / APEX_TIME;
+
+          if (prevW > 0 && prevH > 0) {
+            var sx = w / prevW;
+            var sy = h / prevH;
+            st.obstacles.forEach(function (o) {
+              o.x *= sx;
+              o.w *= sx;
+              o.h *= sy;
+              o.y = view.groundY - o.h;
+            });
+            st.pickups.forEach(function (p) {
+              p.x *= sx;
+              p.y *= sy;
+            });
+            st.sparks.length = 0;
+            st.y *= sy;
+            st.vy *= sy;
+          }
+          return true;
+        }
+
+        /* ═══════════ HUD ═══════════ */
+        function hud() {
+          var s = stage();
+          /* Lost hearts stay in place as white ones, so the bar never reflows. */
+          el.lives.textContent =
+            "❤️".repeat(Math.max(0, st.lives)) +
+            "🤍".repeat(Math.max(0, 3 - st.lives));
+          el.score.textContent = st.score;
+          el.level.textContent = "level " + (st.level + 1) + " / 4";
+          el.count.textContent = st.stars + " / " + s.need;
+          el.fill.style.width = clamp((st.stars / s.need) * 100, 0, 100) + "%";
+          el.dots.forEach(function (d, i) {
+            d.className =
+              "sd" + (i < st.level ? " done" : i === st.level ? " cur" : "");
+          });
+        }
+
+        function showOv(id) {
+          ["ov-start", "ov-over", "ov-win"].forEach(function (key) {
+            document.getElementById(key).classList.toggle("show", key === id);
+          });
+        }
+
+        /* ═══════════ Spawning ═══════════
+           Spawns are driven by distance travelled rather than by a timer, so
+           the rhythm does not change when the speed does, and the gap can
+           never be shorter than the jump itself. */
+        function planSpawns(fresh) {
+          var jumpSpan = speed() * APEX_TIME * 2;
+          var gap = Math.max(view.w * 0.6, jumpSpan * 1.5);
+          st.nextObstacle = st.distance + gap * (fresh ? 1.15 : rand(0.92, 1.3));
+          st.nextStar =
+            st.distance + view.w * (fresh ? 0.4 : rand(0.3, 0.55));
+        }
+
+        function spawnObstacle() {
+          var h = charH();
+          var height = h * rand(0.34, 0.62);
+          var width = height * rand(0.72, 1.05);
+          st.obstacles.push({
+            x: view.w + width,
+            y: view.groundY - height,
+            w: width,
+            h: height,
+          });
+        }
+
+        function spawnStar() {
+          var h = charH();
+          var x = view.w + h * 0.4;
+          /* A star sitting on top of an obstacle would be uncollectable, so
+             lift it to jump height instead. */
+          var blocked = st.obstacles.some(function (o) {
+            return Math.abs(o.x + o.w / 2 - x) < h * 1.4;
+          });
+          var low = view.groundY - h * 0.55;
+          var high = view.groundY - h * 0.45 - view.apex * rand(0.35, 0.8);
+          st.pickups.push({
+            x: x,
+            y: blocked || Math.random() < 0.55 ? high : low,
+            bob: Math.random() * TAU,
+          });
+        }
+
+        /* ═══════════ Input ═══════════ */
+        function jump() {
+          if (st.phase !== "running") return;
+          st.buffer = BUFFER;
+        }
+
+        function applyJump(dt) {
+          st.buffer = Math.max(0, st.buffer - dt);
+          st.coyote = st.grounded ? COYOTE : Math.max(0, st.coyote - dt);
+          if (st.buffer > 0 && st.coyote > 0) {
+            st.vy = view.jumpV;
+            st.grounded = false;
+            st.buffer = 0;
+            st.coyote = 0;
+            var h = charH();
+            for (var i = 0; i < 6; i++) {
+              st.sparks.push({
+                x: view.playerX + rand(-h * 0.12, h * 0.12),
+                y: view.groundY,
+                vx: rand(-60, 20),
+                vy: rand(-140, -50),
+                life: 1,
+                r: h * 0.018,
+                col: "#c9a96e",
+              });
+            }
+          }
+        }
+
+        arena.addEventListener("pointerdown", function (e) {
+          /* Do not swallow taps meant for the overlay buttons — that was why
+             Play and Retry sometimes did nothing. */
+          if (e.target.closest(".gov")) return;
+          e.preventDefault();
+          jump();
+        });
+
+        window.addEventListener(
+          "keydown",
+          function (e) {
+            if (!modal.classList.contains("open")) return;
+            if (e.key === "Escape") {
+              closeGame();
+              return;
+            }
+            if (e.code === "Space" || e.code === "ArrowUp" || e.code === "KeyW") {
+              if (e.target && e.target.closest && e.target.closest("button")) return;
+              e.preventDefault();
+              jump();
+            }
+          },
+          { passive: false }
+        );
+
+        /* ═══════════ Simulation ═══════════ */
+        function update(dt) {
+          var h = charH();
+          var v = speed();
+
+          st.clock += dt;
+          st.walk += dt * STEP_RATE * (st.grounded ? 1 : 0.35);
+          st.distance += v * dt;
+          st.shake = Math.max(0, st.shake - dt * 3.5);
+          st.invuln = Math.max(0, st.invuln - dt);
+
+          if (st.phase === "transition") {
+            st.fade += dt;
+            /* Swap the level behind the opaque middle of the wipe. */
+            if (st.fade >= 0.55 && st.level === st.fadeFrom) {
+              st.level = st.fadeFrom + 1;
+              st.stars = 0;
+              st.elapsed = 0;
+              st.obstacles.length = 0;
+              st.pickups.length = 0;
+              planSpawns(true);
+              hud();
+            }
+            if (st.fade >= 2) {
+              st.fade = 0;
+              st.phase = "running";
+            }
+          }
+
+          if (st.phase === "running") {
+            st.elapsed += dt;
+            if (st.distance >= st.nextObstacle) {
+              spawnObstacle();
+              var jumpSpan = v * APEX_TIME * 2;
+              st.nextObstacle =
+                st.distance +
+                Math.max(view.w * 0.6, jumpSpan * 1.5) * rand(0.92, 1.35);
+            }
+            if (st.distance >= st.nextStar) {
+              spawnStar();
+              st.nextStar = st.distance + view.w * rand(0.3, 0.6);
+            }
+          }
+
+          applyJump(dt);
+          st.vy += view.gravity * dt;
+          st.y += st.vy * dt;
+          if (st.y >= 0) {
+            st.y = 0;
+            st.vy = 0;
+            st.grounded = true;
+          } else {
+            st.grounded = false;
+          }
+
+          var i;
+          for (i = st.obstacles.length - 1; i >= 0; i--) {
+            st.obstacles[i].x -= v * dt;
+            if (st.obstacles[i].x + st.obstacles[i].w < -20) st.obstacles.splice(i, 1);
+          }
+          for (i = st.pickups.length - 1; i >= 0; i--) {
+            st.pickups[i].x -= v * dt;
+            if (st.pickups[i].x < -30) st.pickups.splice(i, 1);
+          }
+          for (i = st.sparks.length - 1; i >= 0; i--) {
+            var p = st.sparks[i];
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.vy += view.h * 1.4 * dt;
+            p.life -= dt * 2.2;
+            if (p.life <= 0) st.sparks.splice(i, 1);
+          }
+
+          if (st.phase !== "running") return;
+
+          /* Collision box: 60% of the drawn character, so she never dies to
+             something she visibly cleared. */
+          var feet = view.groundY + st.y;
+          var bw = h * stage().metrics.hitW * 0.6;
+          var bx = view.playerX - bw / 2;
+          var by = feet - h * 0.86;
+          var bh = h * 0.84;
+
+          if (st.invuln <= 0) {
+            for (i = 0; i < st.obstacles.length; i++) {
+              var o = st.obstacles[i];
+              var ox = o.x + o.w * 0.14,
+                ow = o.w * 0.72,
+                oy = o.y + o.h * 0.1,
+                oh = o.h * 0.9;
+              if (bx < ox + ow && bx + bw > ox && by < oy + oh && by + bh > oy) {
+                takeHit(feet, h);
+                break;
+              }
+            }
+          }
+
+          for (i = st.pickups.length - 1; i >= 0; i--) {
+            var s = st.pickups[i];
+            var dx = s.x - view.playerX;
+            var dy = s.y - (feet - h * 0.5);
+            if (dx * dx + dy * dy < h * 0.46 * (h * 0.46)) {
+              st.pickups.splice(i, 1);
+              collect(s, h);
+              break;
+            }
+          }
+        }
+
+        function takeHit(feet, h) {
+          st.lives -= 1;
+          st.invuln = INVULN;
+          st.shake = 1;
+          for (var i = 0; i < 10; i++) {
+            st.sparks.push({
+              x: view.playerX,
+              y: feet - h * 0.5,
+              vx: rand(-140, 140),
+              vy: rand(-220, -60),
+              life: 1,
+              r: h * 0.022,
+              col: "#e8607a",
+            });
+          }
+          hud();
+          if (st.lives <= 0) {
+            st.phase = "over";
+            showOv("ov-over");
+          }
+        }
+
+        function collect(s, h) {
+          st.stars += 1;
+          st.score += 1;
+          for (var i = 0; i < 7; i++) {
+            st.sparks.push({
+              x: s.x,
+              y: s.y,
+              vx: rand(-90, 90),
+              vy: rand(-140, -30),
+              life: 1,
+              r: h * 0.018,
+              col: ["#f5e045", "#f0d080", "#ffffff"][~~(Math.random() * 3)],
+            });
+          }
+          hud();
+          if (st.stars < stage().need) return;
+
+          if (st.level >= STAGES.length - 1) {
+            st.phase = "won";
+            showOv("ov-win");
+          } else {
+            st.phase = "transition";
+            st.fade = 0;
+            st.fadeFrom = st.level;
+            st.shake = 0;
+          }
+        }
+
+        /* ═══════════ Drawing ═══════════ */
+        function render() {
+          var s = stage();
+          var shakeX =
+            st.shake > 0 ? Math.sin(st.shake * 40) * st.shake * view.w * 0.006 : 0;
+          var shakeY =
+            st.shake > 0 ? Math.cos(st.shake * 33) * st.shake * view.h * 0.006 : 0;
+
+          ctx.setTransform(
+            view.dpr,
+            0,
+            0,
+            view.dpr,
+            view.dpr * shakeX,
+            view.dpr * shakeY
+          );
+          ctx.clearRect(-24, -24, view.w + 48, view.h + 48);
+
+          drawSky(s);
+          drawGround(s);
+          drawObstacles();
+          drawPickups();
+          drawCharacter(s);
+          drawSparks();
+          if (st.phase === "transition") drawWipe();
+        }
+
+        function drawSky(s) {
+          var g = ctx.createLinearGradient(0, 0, 0, view.groundY);
+          g.addColorStop(0, s.skyA);
+          g.addColorStop(1, s.skyB);
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, view.w, view.groundY);
+
+          /* The backdrop scrolls on distance travelled, not on speed, so it no
+             longer jumps when the level speed changes. */
+          ctx.font = Math.round(view.h * 0.046) + "px sans-serif";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "top";
+          ctx.globalAlpha = 0.16;
+          var span = view.w * 1.1;
+          for (var i = 0; i < s.bg.length; i++) {
+            var x =
+              view.w * 1.05 -
+              ((st.distance * 0.14 + i * (view.w / 3) + view.w * 0.08) % span);
+            var y =
+              view.h * 0.04 +
+              i * (view.h * 0.052) +
+              Math.sin(st.clock * 1.1 + i) * view.h * 0.011;
+            ctx.fillText(s.bg[i], x, y);
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        function drawGround(s) {
+          var g = ctx.createLinearGradient(0, view.groundY, 0, view.h);
+          g.addColorStop(0, s.gA);
+          g.addColorStop(1, s.gB);
+          ctx.fillStyle = g;
+          ctx.fillRect(0, view.groundY, view.w, view.h - view.groundY);
+
+          ctx.strokeStyle = "rgba(255,255,255,.08)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(0, view.groundY + 0.5);
+          ctx.lineTo(view.w, view.groundY + 0.5);
+          ctx.stroke();
+
+          var dash = Math.max(14, view.w * 0.03);
+          ctx.strokeStyle = "rgba(255,255,255,.045)";
+          ctx.setLineDash([dash, dash * 2.4]);
+          ctx.lineDashOffset = -(st.distance % (dash * 3.4));
+          ctx.beginPath();
+          ctx.moveTo(0, view.groundY + Math.max(6, view.h * 0.02));
+          ctx.lineTo(view.w, view.groundY + Math.max(6, view.h * 0.02));
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        function drawObstacles() {
+          var cols = OBS_COLS[st.level];
+          st.obstacles.forEach(function (o) {
+            var r = Math.min(o.w, o.h) * 0.22;
+            ctx.fillStyle = cols[0];
+            ctx.beginPath();
+            ctx.roundRect(o.x, o.y, o.w, o.h, r);
+            ctx.fill();
+            ctx.fillStyle = cols[1];
+            ctx.beginPath();
+            ctx.roundRect(
+              o.x + o.w * 0.1,
+              o.y + o.h * 0.1,
+              o.w * 0.8,
+              o.h * 0.32,
+              r * 0.6
+            );
+            ctx.fill();
+            ctx.fillStyle = cols[2];
+            ctx.globalAlpha = 0.35;
+            ctx.beginPath();
+            ctx.ellipse(
+              o.x + o.w * 0.3,
+              o.y + o.h * 0.22,
+              o.w * 0.12,
+              o.h * 0.07,
+              -0.4,
+              0,
+              TAU
+            );
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          });
+        }
+
+        function drawPickups() {
+          var r = Math.max(6, view.h * 0.022);
+          st.pickups.forEach(function (s) {
+            var y = s.y + Math.sin(st.clock * 3.5 + s.bob) * view.h * 0.009;
+            ctx.globalAlpha = 0.22 + 0.08 * Math.sin(st.clock * 4 + s.bob);
+            ctx.fillStyle = "#f0d050";
+            ctx.beginPath();
+            ctx.arc(s.x, y, r * 2, 0, TAU);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
+            ctx.fillStyle = "#f5e045";
+            ctx.strokeStyle = "#c89010";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            for (var i = 0; i < 5; i++) {
+              var ao = (i * TAU) / 5 - Math.PI / 2;
+              var ai = ao + TAU / 10;
+              var px = s.x + Math.cos(ao) * r;
+              var py = y + Math.sin(ao) * r;
+              if (i === 0) ctx.moveTo(px, py);
+              else ctx.lineTo(px, py);
+              ctx.lineTo(s.x + Math.cos(ai) * r * 0.42, y + Math.sin(ai) * r * 0.42);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+          });
+        }
+
+        function drawSparks() {
+          st.sparks.forEach(function (p) {
+            ctx.globalAlpha = Math.max(0, p.life) * 0.85;
+            ctx.fillStyle = p.col;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, TAU);
+            ctx.fill();
+          });
+          ctx.globalAlpha = 1;
+        }
+
+        function drawWipe() {
+          var t = st.fade;
+          var veil = t < 0.55 ? t / 0.55 : t < 1.45 ? 1 : 1 - (t - 1.45) / 0.55;
+          ctx.fillStyle = "rgba(11,9,22," + clamp(veil, 0, 1) + ")";
+          ctx.fillRect(0, 0, view.w, view.h);
+          if (t < 0.55) return;
+
+          ctx.globalAlpha = clamp(t < 1.45 ? (t - 0.55) / 0.3 : (2 - t) / 0.4, 0, 1);
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillStyle = "#c9a96e";
+          ctx.font =
+            "italic 300 " +
+            Math.round(view.h * 0.15) +
+            'px "Cormorant Garamond", Georgia, serif';
+          var label = "Level " + (st.fadeFrom + 2);
+          ctx.fillText(label, view.w / 2, view.h * 0.48);
+
+          /* a thin rule under it, in the same gold */
+          var half = ctx.measureText(label).width / 2;
+          ctx.strokeStyle = "rgba(201,169,110,.45)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(view.w / 2 - half, view.h * 0.6);
+          ctx.lineTo(view.w / 2 + half, view.h * 0.6);
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+
+        /* ═══════════════════════════════════════════════
+           THE CHARACTER
+           One girl, four ages. She is drawn in a space
+           where she is exactly 1 unit tall with her feet
+           at y = 0, so the same code serves every stage
+           and every screen size.
+        ═══════════════════════════════════════════════ */
+        /* Darkens a hex colour, used to push the far arm and leg back. */
+        function shade(hex, amount) {
+          var n = parseInt(hex.slice(1), 16);
+          var r = Math.round(((n >> 16) & 255) * amount);
+          var g = Math.round(((n >> 8) & 255) * amount);
+          var b = Math.round((n & 255) * amount);
+          return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        function limb(x, y, w, len, angle, tone) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle);
+          ctx.fillStyle = tone;
+          ctx.beginPath();
+          ctx.roundRect(-w / 2, -w * 0.2, w, len + w * 0.2, w * 0.5);
+          ctx.fill();
+          ctx.restore();
+        }
+        function endOf(x, y, len, angle) {
+          return [x - Math.sin(angle) * len, y + Math.cos(angle) * len];
+        }
+        function shoe(x, y, w, tone, toe) {
+          ctx.fillStyle = tone;
+          ctx.beginPath();
+          ctx.ellipse(x + w * 0.1, y - w * 0.16, w * 0.62, w * 0.34, 0, 0, TAU);
+          ctx.fill();
+          if (toe) {
+            ctx.fillStyle = toe;
+            ctx.beginPath();
+            ctx.ellipse(x + w * 0.32, y - w * 0.18, w * 0.2, w * 0.16, 0, 0, TAU);
+            ctx.fill();
+          }
+        }
+
+        function face(m) {
+          var r = m.headR,
+            e = m.eyeScale,
+            cy = m.headCY;
+
+          ctx.fillStyle = "rgba(226,124,140,.34)";
+          ctx.beginPath();
+          ctx.ellipse(-r * 0.62, cy + r * 0.3, r * 0.28, r * 0.19, 0, 0, TAU);
+          ctx.ellipse(r * 0.62, cy + r * 0.3, r * 0.28, r * 0.19, 0, 0, TAU);
+          ctx.fill();
+
+          ctx.fillStyle = EYE;
+          ctx.beginPath();
+          ctx.ellipse(-r * 0.36, cy + r * 0.02, r * 0.17 * e, r * 0.22 * e, 0, 0, TAU);
+          ctx.ellipse(r * 0.36, cy + r * 0.02, r * 0.17 * e, r * 0.22 * e, 0, 0, TAU);
+          ctx.fill();
+
+          ctx.fillStyle = "#fff";
+          ctx.beginPath();
+          ctx.ellipse(-r * 0.28, cy - r * 0.06, r * 0.07 * e, r * 0.09 * e, 0, 0, TAU);
+          ctx.ellipse(r * 0.44, cy - r * 0.06, r * 0.07 * e, r * 0.09 * e, 0, 0, TAU);
+          ctx.fill();
+
+          ctx.fillStyle = "rgba(176,116,104,.5)";
+          ctx.beginPath();
+          ctx.arc(0, cy + r * 0.24, r * 0.06, 0, TAU);
+          ctx.fill();
+
+          ctx.strokeStyle = "#b07080";
+          ctx.lineWidth = r * 0.075;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.arc(0, cy + r * 0.34, r * 0.26, 0.32, Math.PI - 0.32);
+          ctx.stroke();
+        }
+
+        function head(m) {
+          var r = m.headR;
+          ctx.fillStyle = SKIN;
+          ctx.beginPath();
+          ctx.ellipse(0, m.chinY + r * 0.16, r * 0.34, r * 0.3, 0, 0, TAU);
+          ctx.arc(0, m.headCY, r, 0, TAU);
+          ctx.ellipse(-r * 0.97, m.headCY + r * 0.05, r * 0.22, r * 0.3, 0, 0, TAU);
+          ctx.ellipse(r * 0.97, m.headCY + r * 0.05, r * 0.22, r * 0.3, 0, 0, TAU);
+          ctx.fill();
+
+          ctx.fillStyle = SKIN_SHADE;
+          ctx.beginPath();
+          ctx.ellipse(-r * 0.97, m.headCY + r * 0.05, r * 0.11, r * 0.17, 0, 0, TAU);
+          ctx.ellipse(r * 0.97, m.headCY + r * 0.05, r * 0.11, r * 0.17, 0, 0, TAU);
+          ctx.fill();
+
+          face(m);
+        }
+
+        /* One hairline shape for all four ages, so she always reads as the
+           same person. */
+        function hairCap(m) {
+          var r = m.headR;
+          ctx.fillStyle = HAIR;
+          ctx.beginPath();
+          ctx.ellipse(0, m.headCY - r * 0.06, r * 1.03, r * 0.96, 0, Math.PI, TAU);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.moveTo(-r, m.headCY - r * 0.02);
+          ctx.quadraticCurveTo(-r * 0.3, m.headCY + r * 0.34, r * 0.55, m.headCY - r * 0.06);
+          ctx.quadraticCurveTo(r * 0.3, m.headCY - r * 0.6, -r * 0.6, m.headCY - r * 0.55);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = HAIR_LIGHT;
+          ctx.globalAlpha = 0.5;
+          ctx.beginPath();
+          ctx.ellipse(-r * 0.42, m.headCY - r * 0.6, r * 0.3, r * 0.11, -0.4, 0, TAU);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+
+        function ribbon(x, y, size, angle) {
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(angle || 0);
+          ctx.fillStyle = RIBBON;
+          ctx.beginPath();
+          ctx.ellipse(-size, 0, size, size * 0.66, -0.5, 0, TAU);
+          ctx.ellipse(size, 0, size, size * 0.66, 0.5, 0, TAU);
+          ctx.fill();
+          ctx.fillStyle = "#b9647f";
+          ctx.beginPath();
+          ctx.arc(0, 0, size * 0.42, 0, TAU);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        function arms(m, sleeve) {
+          function one(side, angle) {
+            var far = side < 0;
+            var sx = side * m.shoulderX;
+            var sy = m.shoulderY;
+            var skin = far ? shade(SKIN, 0.86) : SKIN;
+            limb(sx, sy, m.armW, m.armLen, angle, skin);
+            var e = endOf(sx, sy, m.armLen, angle);
+            ctx.fillStyle = skin;
+            ctx.beginPath();
+            ctx.arc(e[0], e[1], m.armW * 0.55, 0, TAU);
+            ctx.fill();
+            if (sleeve) {
+              limb(
+                sx,
+                sy - m.armW * 0.1,
+                sleeve.w,
+                sleeve.len,
+                angle,
+                far ? shade(sleeve.tone, 0.86) : sleeve.tone
+              );
+            }
+          }
+          return {
+            back: function (a) {
+              one(-1, a);
+            },
+            front: function (a) {
+              one(1, a);
+            },
+          };
+        }
+
+        function legs(m, tone, shoeTone, toeTone, sockTone) {
+          return function (side, angle) {
+            var far = side < 0;
+            var dim = function (c) {
+              return far ? shade(c, 0.86) : c;
+            };
+            var hx = side * m.hipX;
+            limb(hx, m.hipY, m.legW, m.legLen, angle, dim(tone));
+            if (sockTone) {
+              var ankle = endOf(hx, m.hipY, m.legLen * 0.68, angle);
+              limb(
+                ankle[0],
+                ankle[1],
+                m.legW * 1.04,
+                m.legLen * 0.32,
+                angle,
+                dim(sockTone)
+              );
+            }
+            var e = endOf(hx, m.hipY, m.legLen, angle);
+            shoe(e[0], e[1], m.legW * 1.5, dim(shoeTone), toeTone && dim(toeTone));
+          };
+        }
+
+        /* ── 1. Baby girl: striped sundress, soft sandals, one curl ── */
+        function outfitInfant(m, lb, lf, ab, af) {
+          var leg = legs(m, SKIN, "#f6efe4", "#e6c3d2");
+          var arm = arms(m, null);
+
+          leg(-1, lb);
+          arm.back(ab);
+          leg(1, lf);
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(-m.bodyW * 0.34, m.shoulderY);
+          ctx.lineTo(m.bodyW * 0.34, m.shoulderY);
+          ctx.lineTo(m.bodyW * 0.56, m.hipY + 0.06);
+          ctx.quadraticCurveTo(0, m.hipY + 0.11, -m.bodyW * 0.56, m.hipY + 0.06);
+          ctx.closePath();
+          ctx.clip();
+          var bands = ["#f6d27a", "#ef9ab8", "#6fd3cb", "#f4efe4"];
+          var top = m.shoulderY;
+          var bh = (m.hipY + 0.11 - top) / 6;
+          for (var i = 0; i < 6; i++) {
+            ctx.fillStyle = bands[i % bands.length];
+            ctx.fillRect(-0.4, top + i * bh, 0.8, bh + 0.003);
+          }
+          ctx.restore();
+
+          ctx.fillStyle = RIBBON;
+          ctx.beginPath();
+          ctx.roundRect(-m.bodyW * 0.3, m.shoulderY - 0.045, 0.035, 0.06, 0.017);
+          ctx.roundRect(m.bodyW * 0.3 - 0.035, m.shoulderY - 0.045, 0.035, 0.06, 0.017);
+          ctx.fill();
+          ctx.fillStyle = "#6fd3cb";
+          ctx.beginPath();
+          ctx.arc(0, m.shoulderY + 0.1, 0.026, 0, TAU);
+          ctx.fill();
+
+          arm.front(af);
+          head(m);
+          hairCap(m);
+
+          ctx.fillStyle = HAIR;
+          ctx.beginPath();
+          ctx.moveTo(-0.01, m.headCY - m.headR * 0.95);
+          ctx.quadraticCurveTo(-0.09, m.headCY - m.headR * 1.7, -0.02, m.headCY - m.headR * 1.25);
+          ctx.quadraticCurveTo(0.04, m.headCY - m.headR * 1.6, 0.01, m.headCY - m.headR * 0.95);
+          ctx.fill();
+          ribbon(m.headR * 0.55, m.headCY - m.headR * 0.92, m.headR * 0.28, 0.35);
+        }
+
+        /* ── 2. School girl: white uniform, navy tie, braids ── */
+        function outfitSchool(m, lb, lf, ab, af) {
+          var leg = legs(m, SKIN, "#1a1622", null, "#f6f6f4");
+          var arm = arms(m, { tone: "#fafaf8", len: m.armLen * 0.42, w: m.armW * 1.5 });
+
+          ctx.strokeStyle = HAIR;
+          ctx.lineWidth = m.headR * 0.4;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(-m.headR * 0.85, m.headCY + m.headR * 0.2);
+          ctx.quadraticCurveTo(-m.headR * 1.7, m.shoulderY, -m.headR * 1.6, m.shoulderY + 0.1);
+          ctx.moveTo(m.headR * 0.85, m.headCY + m.headR * 0.2);
+          ctx.quadraticCurveTo(m.headR * 1.1, m.shoulderY, m.headR * 0.75, m.shoulderY + 0.1);
+          ctx.stroke();
+
+          leg(-1, lb);
+          arm.back(ab);
+          leg(1, lf);
+
+          ctx.fillStyle = "#f2f2ef";
+          ctx.beginPath();
+          ctx.moveTo(-m.bodyW * 0.42, m.hipY - 0.06);
+          ctx.lineTo(m.bodyW * 0.42, m.hipY - 0.06);
+          ctx.lineTo(m.bodyW * 0.72, m.hipY + 0.075);
+          ctx.lineTo(-m.bodyW * 0.72, m.hipY + 0.075);
+          ctx.closePath();
+          ctx.fill();
+          ctx.strokeStyle = "rgba(160,160,170,.5)";
+          ctx.lineWidth = 0.005;
+          for (var i = -1; i <= 1; i++) {
+            ctx.beginPath();
+            ctx.moveTo(m.bodyW * 0.22 * i, m.hipY - 0.05);
+            ctx.lineTo(m.bodyW * 0.36 * i, m.hipY + 0.07);
+            ctx.stroke();
+          }
+
+          ctx.fillStyle = "#fafaf8";
+          ctx.beginPath();
+          ctx.roundRect(
+            -m.bodyW * 0.44,
+            m.shoulderY - 0.012,
+            m.bodyW * 0.88,
+            m.hipY - m.shoulderY - 0.04,
+            0.014
+          );
+          ctx.fill();
+          ctx.fillStyle = "#e6e6e2";
+          ctx.fillRect(-m.bodyW * 0.44, m.hipY - 0.062, m.bodyW * 0.88, 0.014);
+
+          ctx.fillStyle = "#fff";
+          ctx.beginPath();
+          ctx.moveTo(-m.headR * 0.6, m.shoulderY - 0.015);
+          ctx.lineTo(-0.008, m.shoulderY + 0.05);
+          ctx.lineTo(-m.headR * 0.2, m.shoulderY - 0.02);
+          ctx.closePath();
+          ctx.moveTo(m.headR * 0.6, m.shoulderY - 0.015);
+          ctx.lineTo(0.008, m.shoulderY + 0.05);
+          ctx.lineTo(m.headR * 0.2, m.shoulderY - 0.02);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = "#16307e";
+          ctx.beginPath();
+          ctx.moveTo(-0.022, m.shoulderY + 0.012);
+          ctx.lineTo(0.022, m.shoulderY + 0.012);
+          ctx.lineTo(0.026, m.hipY - 0.09);
+          ctx.lineTo(0, m.hipY - 0.055);
+          ctx.lineTo(-0.026, m.hipY - 0.09);
+          ctx.closePath();
+          ctx.fill();
+          ctx.fillStyle = "#2547b8";
+          ctx.beginPath();
+          ctx.roundRect(-0.02, m.shoulderY + 0.008, 0.04, 0.028, 0.008);
+          ctx.fill();
+
+          arm.front(af);
+          head(m);
+          hairCap(m);
+          ribbon(-m.headR * 0.9, m.headCY + m.headR * 0.2, m.headR * 0.22, -0.4);
+          ribbon(m.headR * 0.9, m.headCY + m.headR * 0.2, m.headR * 0.22, 0.4);
+        }
+
+        /* ── 3. Medical student: blue scrubs, ponytail, badge ── */
+        function outfitStudent(m, lb, lf, ab, af) {
+          var SCRUB = "#1e46b8";
+          var SCRUB_DARK = "#16359a";
+          var leg = legs(m, SCRUB, "#15151f", null);
+          var arm = arms(m, { tone: SCRUB, len: m.armLen * 0.44, w: m.armW * 1.55 });
+
+          ctx.strokeStyle = HAIR;
+          ctx.lineWidth = m.headR * 0.46;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(-m.headR * 0.8, m.headCY - m.headR * 0.1);
+          ctx.bezierCurveTo(
+            -m.headR * 1.9,
+            m.headCY + m.headR * 0.35,
+            -m.headR * 2.1,
+            m.shoulderY + 0.04,
+            -m.headR * 1.5,
+            m.shoulderY + 0.12
+          );
+          ctx.stroke();
+
+          leg(-1, lb);
+          arm.back(ab);
+          leg(1, lf);
+
+          ctx.fillStyle = SCRUB;
+          ctx.beginPath();
+          ctx.roundRect(
+            -m.bodyW * 0.5,
+            m.shoulderY - 0.015,
+            m.bodyW,
+            m.hipY - m.shoulderY + 0.045,
+            0.016
+          );
+          ctx.fill();
+
+          ctx.fillStyle = SKIN;
+          ctx.beginPath();
+          ctx.moveTo(-0.032, m.shoulderY - 0.012);
+          ctx.lineTo(0.032, m.shoulderY - 0.012);
+          ctx.lineTo(0, m.shoulderY + 0.055);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = SCRUB_DARK;
+          ctx.beginPath();
+          ctx.roundRect(-m.bodyW * 0.42, m.hipY - 0.06, m.bodyW * 0.34, 0.055, 0.008);
+          ctx.roundRect(m.bodyW * 0.08, m.hipY - 0.06, m.bodyW * 0.34, 0.055, 0.008);
+          ctx.fill();
+          ctx.fillStyle = "#f4f4f2";
+          ctx.beginPath();
+          ctx.roundRect(m.bodyW * 0.14, m.shoulderY + 0.045, 0.05, 0.028, 0.006);
+          ctx.fill();
+
+          arm.front(af);
+          head(m);
+          hairCap(m);
+          ribbon(-m.headR * 0.78, m.headCY - m.headR * 0.12, m.headR * 0.24, -0.3);
+        }
+
+        /* ── 4. Doctor: white coat, stethoscope, low bun ── */
+        function outfitDoctor(m, lb, lf, ab, af) {
+          var COAT = "#f3f3f0";
+          var leg = legs(m, "#2b2d3f", "#15151f", null);
+          var arm = arms(m, { tone: COAT, len: m.armLen * 0.78, w: m.armW * 1.6 });
+
+          ctx.fillStyle = HAIR;
+          ctx.beginPath();
+          ctx.arc(m.headR * 0.05, m.headCY - m.headR * 0.95, m.headR * 0.52, 0, TAU);
+          ctx.fill();
+
+          leg(-1, lb);
+          arm.back(ab);
+          leg(1, lf);
+
+          ctx.fillStyle = "#5fb0a0";
+          ctx.beginPath();
+          ctx.roundRect(
+            -m.bodyW * 0.36,
+            m.shoulderY - 0.01,
+            m.bodyW * 0.72,
+            m.hipY - m.shoulderY + 0.05,
+            0.012
+          );
+          ctx.fill();
+
+          ctx.fillStyle = COAT;
+          ctx.beginPath();
+          ctx.roundRect(
+            -m.bodyW * 0.54,
+            m.shoulderY - 0.015,
+            m.bodyW * 0.42,
+            m.hipY - m.shoulderY + 0.16,
+            0.014
+          );
+          ctx.roundRect(
+            m.bodyW * 0.12,
+            m.shoulderY - 0.015,
+            m.bodyW * 0.42,
+            m.hipY - m.shoulderY + 0.16,
+            0.014
+          );
+          ctx.fill();
+
+          ctx.fillStyle = "#e2e2de";
+          ctx.beginPath();
+          ctx.moveTo(-m.bodyW * 0.54, m.shoulderY - 0.015);
+          ctx.lineTo(-0.012, m.shoulderY + 0.06);
+          ctx.lineTo(-m.bodyW * 0.54, m.shoulderY + 0.1);
+          ctx.closePath();
+          ctx.moveTo(m.bodyW * 0.54, m.shoulderY - 0.015);
+          ctx.lineTo(0.012, m.shoulderY + 0.06);
+          ctx.lineTo(m.bodyW * 0.54, m.shoulderY + 0.1);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = "#e7e7e3";
+          ctx.beginPath();
+          ctx.roundRect(-m.bodyW * 0.5, m.hipY + 0.02, m.bodyW * 0.32, 0.05, 0.008);
+          ctx.roundRect(m.bodyW * 0.18, m.hipY + 0.02, m.bodyW * 0.32, 0.05, 0.008);
+          ctx.fill();
+
+          ctx.strokeStyle = "#1b1b28";
+          ctx.lineWidth = 0.016;
+          ctx.lineCap = "round";
+          ctx.beginPath();
+          ctx.moveTo(-0.045, m.shoulderY + 0.005);
+          ctx.bezierCurveTo(
+            -0.1,
+            m.shoulderY + 0.12,
+            0.1,
+            m.shoulderY + 0.12,
+            0.045,
+            m.shoulderY + 0.005
+          );
+          ctx.stroke();
+          ctx.fillStyle = "#c6c6d0";
+          ctx.beginPath();
+          ctx.arc(0.01, m.shoulderY + 0.115, 0.022, 0, TAU);
+          ctx.fill();
+
+          arm.front(af);
+          head(m);
+          hairCap(m);
+          ribbon(m.headR * 0.05, m.headCY - m.headR * 0.95, m.headR * 0.26, 0);
+        }
+
+        function drawCharacter(s) {
+          var m = s.metrics;
+          var h = charH();
+          var feet = view.groundY + st.y;
+          var air = !st.grounded;
+          var blink =
+            st.invuln > 0 ? 0.35 + 0.65 * Math.abs(Math.sin(st.invuln * 22)) : 1;
+
+          ctx.globalAlpha = 0.16 * (air ? 0.55 : 1);
+          ctx.fillStyle = "#000";
+          ctx.beginPath();
+          ctx.ellipse(
+            view.playerX,
+            view.groundY + h * 0.012,
+            h * (air ? 0.16 : 0.21),
+            h * 0.045,
+            0,
+            0,
+            TAU
+          );
+          ctx.fill();
+          ctx.globalAlpha = 1;
+
+          /* A positive angle swings a limb backwards (to the left), a negative
+             one forwards. In the air the leading leg reaches forward and both
+             arms come up in front, which is what sells the direction. */
+          var swing = air ? 0 : Math.sin(st.walk) * 0.36;
+          var legBack = air ? 0.45 : swing;
+          var legFront = air ? -0.5 : -swing;
+          var armBack = air ? -1.6 : -swing * 1.25;
+          var armFront = air ? -2 : swing * 1.25;
+          /* The body dips by exactly what the swinging legs lose in height, so
+             the planted foot meets the ground instead of skating above it. */
+          var dip = air ? 0 : (1 - Math.cos(swing)) * m.legLen;
+
+          ctx.save();
+          ctx.globalAlpha = blink;
+          ctx.translate(view.playerX, feet);
+          ctx.scale(h, h);
+          ctx.translate(0, dip);
+
+          if (s.outfit === "infant") outfitInfant(m, legBack, legFront, armBack, armFront);
+          else if (s.outfit === "school") outfitSchool(m, legBack, legFront, armBack, armFront);
+          else if (s.outfit === "student") outfitStudent(m, legBack, legFront, armBack, armFront);
+          else outfitDoctor(m, legBack, legFront, armBack, armFront);
+
+          ctx.restore();
+          ctx.globalAlpha = 1;
+        }
+
+        /* ═══════════ Loop ═══════════ */
+        function loop(ts) {
+          raf = requestAnimationFrame(loop);
+          var dt = Math.min((ts - lastTs) / 1000, 0.05);
+          lastTs = ts;
+          if (!view.w) {
+            measure();
+            return;
+          }
+          update(dt);
+          render();
+        }
+        function play() {
+          if (raf) return;
+          lastTs = performance.now();
+          raf = requestAnimationFrame(loop);
+        }
+        function pause() {
+          if (raf) cancelAnimationFrame(raf);
+          raf = null;
+        }
+
+        /* ═══════════ Run control ═══════════ */
+        function resetLevel(lives) {
+          st.stars = 0;
+          st.lives = lives;
+          st.elapsed = 0;
+          st.y = 0;
+          st.vy = 0;
+          st.grounded = true;
+          st.coyote = 0;
+          st.buffer = 0;
+          st.invuln = 0;
+          st.shake = 0;
+          st.fade = 0;
+          st.obstacles.length = 0;
+          st.pickups.length = 0;
+          st.sparks.length = 0;
+          planSpawns(true);
+          hud();
+        }
+        function resetAll() {
+          st.level = 0;
+          st.score = 0;
+          resetLevel(3);
+        }
+        function startRun() {
+          planSpawns(true);
+          st.phase = "running";
+          showOv(null);
+          play();
+        }
+
+        /* ═══════════ Open / close ═══════════ */
+        var scrollY = 0;
+        function openGame() {
+          scrollY = window.scrollY;
+          modal.classList.add("open");
+          document.documentElement.style.overflow = "hidden";
+          /* Wait for the modal to be laid out before measuring, instead of
+             guessing with a timeout. */
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              measure();
+              resetAll();
+              st.phase = "idle";
+              showOv("ov-start");
+              render();
+              play();
+            });
+          });
+        }
+        function closeGame() {
+          pause();
+          modal.classList.remove("open");
+          document.documentElement.style.overflow = "";
+          window.scrollTo(0, scrollY);
+        }
+
+        document.getElementById("petalBtn").addEventListener("click", openGame);
+        document.getElementById("gcls").addEventListener("click", closeGame);
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) closeGame();
+        });
+
+        document.getElementById("btn-start").addEventListener("click", startRun);
+        document.getElementById("btn-retry").addEventListener("click", function () {
+          resetLevel(3);
+          startRun();
+        });
+        document.getElementById("btn-win").addEventListener("click", function () {
+          resetAll();
+          startRun();
+        });
+
+        /* Rotation, resizing, and the mobile address bar sliding away. */
+        if (window.ResizeObserver) {
+          new ResizeObserver(function () {
+            if (measure() && raf) render();
+          }).observe(arena);
+        } else {
+          window.addEventListener("resize", function () {
+            if (measure() && raf) render();
+          });
+        }
+
+        document.addEventListener("visibilitychange", function () {
+          if (!modal.classList.contains("open")) return;
+          if (document.visibilityState === "hidden") pause();
+          else play();
+        });
+
+        /* Canvas silently falls back to a default serif if the webfont has not
+           loaded yet, which is what made the level card look wrong. */
+        if (document.fonts && document.fonts.load) {
+          document.fonts.load('italic 300 40px "Cormorant Garamond"');
+        }
+
+        hud();
+      })();
+    </script>
+  </body>
+</html>
